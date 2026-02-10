@@ -3,14 +3,15 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>CHIMITDORZHI STUDIO | Архитектор ИИ и Senior IT Инженер</title>
-    
+    <meta name="description" content="Дарижапов Чимитдоржи — предприниматель, AI/ML инженер, преподаватель, организатор 50+ мероприятий федерального и международного уровня. 16+ лет опыта."/>
+    <title>СТУДИЯ ЧИМИТДОРЖИ | AI Эксперт · Преподаватель · Предприниматель</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
     <script>
@@ -25,8 +26,8 @@
                         "surface": "#0f1115",
                     },
                     fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"],
-                        "mono": ["JetBrains Mono", "monospace"]
+                        "display": ["Syne", "sans-serif"],
+                        "mono": ["IBM Plex Mono", "monospace"]
                     }
                 },
             },
@@ -34,236 +35,1566 @@
     </script>
 
     <style>
-        /* Кастомный курсор */
-        * { cursor: none !important; }
-        body { background-color: #050608; color: #e2e8f0; overflow-x: hidden; }
-        #cursor-dot { width: 8px; height: 8px; background: #0d59f2; position: fixed; border-radius: 50%; pointer-events: none; z-index: 1000; }
-        #cursor-outline { width: 40px; height: 40px; border: 1.5px solid rgba(13, 89, 242, 0.4); position: fixed; border-radius: 50%; pointer-events: none; z-index: 999; transition: all 0.15s ease-out; }
-        
-        /* Стили компонентов */
-        .glass-card { background: rgba(15, 17, 21, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .bento-item { transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); position: relative; overflow: hidden; }
-        .bento-item:hover { border-color: #0d59f2; transform: translateY(-5px); box-shadow: 0 0 40px rgba(13, 89, 242, 0.2); }
-        
-        /* Нейронный фон */
-        canvas#bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.5; }
-        
-        /* Анимации */
-        .reveal { opacity: 0; transform: translateY(30px); }
-        .text-glow { text-shadow: 0 0 25px rgba(13, 89, 242, 0.6); }
-        .grid-pattern { background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 30px 30px; }
-        
-        /* Мобильное меню */
-        #mobile-nav.active { display: flex; animation: slideIn 0.4s ease forwards; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        :root {
+            --primary: #0d59f2;
+            --accent: #4b85f6;
+            --bg: #050608;
+            --surface: #0f1115;
+        }
+
+        @media (pointer: fine) {
+            * { cursor: none !important; }
+            #cursor-dot, #cursor-outline { display: block; }
+        }
+        @media (pointer: coarse) {
+            #cursor-dot, #cursor-outline { display: none !important; }
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg); color: #e2e8f0; overflow-x: hidden; font-family: "Syne", sans-serif; }
+
+        /* Шум */
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 1; opacity: 0.2;
+        }
+
+        #cursor-dot {
+            width: 8px; height: 8px; background: var(--primary);
+            position: fixed; border-radius: 50%; pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+        #cursor-outline {
+            width: 40px; height: 40px; border: 1.5px solid rgba(13,89,242,0.4);
+            position: fixed; border-radius: 50%; pointer-events: none; z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width .2s, height .2s, background .2s, border-color .2s;
+        }
+        #cursor-outline.hovered {
+            width: 56px; height: 56px;
+            background: rgba(13,89,242,0.06);
+            border-color: rgba(13,89,242,0.7);
+        }
+
+        #scroll-bar {
+            position: fixed; top: 0; left: 0; height: 2px;
+            background: var(--primary); z-index: 9997; width: 0;
+            box-shadow: 0 0 10px var(--primary); transition: width .1s linear;
+        }
+
+        .glass-card {
+            background: rgba(15,17,21,0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .bento-item {
+            transition: border-color .4s ease, transform .4s cubic-bezier(.23,1,.32,1), box-shadow .4s ease;
+            position: relative; overflow: hidden;
+        }
+        @media (hover: hover) {
+            .bento-item:hover {
+                border-color: var(--primary) !important;
+                transform: translateY(-4px);
+                box-shadow: 0 0 40px rgba(13,89,242,0.18);
+            }
+        }
+
+        canvas#bg-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; opacity: 0.4; pointer-events: none;
+        }
+
+        .reveal { opacity: 0; transform: translateY(28px); }
+
+        .grid-pattern {
+            background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        .tech-tag {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 5px 12px;
+            background: rgba(13,89,242,0.08);
+            border: 1px solid rgba(13,89,242,0.2);
+            border-radius: 999px;
+            font-size: 10px; font-family: "IBM Plex Mono", monospace;
+            color: #94a3b8; white-space: nowrap;
+            transition: all .25s ease;
+        }
+        .tech-tag:hover { background: rgba(13,89,242,0.18); border-color: rgba(13,89,242,.5); color: #e2e8f0; }
+        .tech-tag::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }
+
+        .tags-scroll { display: flex; flex-wrap: wrap; gap: 7px; }
+        @media (max-width: 640px) {
+            .tags-scroll { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
+            .tags-scroll::-webkit-scrollbar { display: none; }
+        }
+
+        .skill-bar { height: 3px; background: rgba(13,89,242,0.15); border-radius: 99px; overflow: hidden; }
+        .skill-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 99px; transform-origin: left; transform: scaleX(0); transition: transform 1s cubic-bezier(.23,1,.32,1); }
+        .skill-fill.animated { transform: scaleX(1); }
+
+        .timeline-item { position: relative; padding-left: 26px; }
+        .timeline-item::before { content: ''; position: absolute; left: 0; top: 7px; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 3px rgba(13,89,242,.15); }
+        .timeline-item::after { content: ''; position: absolute; left: 3.5px; top: 19px; width: 1px; bottom: -16px; background: rgba(13,89,242,.15); }
+        .timeline-item:last-child::after { display: none; }
+
+        .terminal-cursor { display: inline-block; width: 8px; height: 1.1em; background: var(--primary); vertical-align: text-bottom; animation: blink 1s step-end infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        /* Activity tabs */
+        .tab-btn { padding: 8px 20px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; border: 1px solid rgba(255,255,255,.08); color: #64748b; transition: all .25s ease; white-space: nowrap; }
+        .tab-btn.active, .tab-btn:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Service cards */
+        .service-card {
+            background: rgba(15,17,21,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 1.5rem; padding: 1.5rem;
+            transition: all .3s ease;
+        }
+        @media (hover: hover) {
+            .service-card:hover { border-color: rgba(13,89,242,.3); background: rgba(13,89,242,.05); transform: translateY(-2px); }
+        }
+
+        #back-top {
+            position: fixed; bottom: 20px; right: 20px;
+            width: 42px; height: 42px; background: var(--primary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity .3s, transform .3s; z-index: 500; border: none;
+        }
+        #back-top.visible { opacity: 1; pointer-events: auto; }
+        #back-top:hover { transform: translateY(-3px); }
+
+        #mobile-nav { display: none; flex-direction: column; }
+        #mobile-nav.active { display: flex; animation: slideIn .3s ease forwards; }
+        @keyframes slideIn { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
+
+        /* ── Typing эффект ── */
+        #typing-role { display: inline; }
+        .typing-cursor-hero {
+            display: inline-block; width: 3px; height: 0.85em;
+            background: var(--primary); vertical-align: middle; margin-left: 2px;
+            animation: blink 0.8s step-end infinite;
+        }
+
+        /* ── Sticky contact panel ── */
+        #sticky-contact {
+            position: fixed; right: 20px; top: 50%;
+            transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 10px;
+            z-index: 400; opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        #sticky-contact.visible { opacity: 1; }
+        .sticky-btn {
+            width: 44px; height: 44px;
+            background: rgba(15,17,21,0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            color: #64748b; text-decoration: none;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+        .sticky-btn:hover { background: var(--primary); border-color: var(--primary); color: #fff; transform: scale(1.1); }
+        .sticky-btn .sticky-tooltip {
+            position: absolute; right: 54px; top: 50%;
+            transform: translateY(-50%);
+            background: rgba(15,17,21,0.95);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #e2e8f0; font-size: 11px; font-weight: 600;
+            padding: 5px 10px; border-radius: 8px;
+            white-space: nowrap; pointer-events: none;
+            opacity: 0; transition: opacity 0.2s ease;
+        }
+        .sticky-btn:hover .sticky-tooltip { opacity: 1; }
+        .sticky-status {
+            width: 44px; padding: 10px 0;
+            background: rgba(15,17,21,0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(34,197,94,0.25);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            writing-mode: vertical-rl; text-orientation: mixed;
+            font-size: 8px; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; color: #4ade80;
+            gap: 4px; position: relative;
+        }
+        @media (max-width: 768px) { #sticky-contact { display: none; } }
+
+        /* ── Section dividers ── */
+        .section-divider {
+            width: 100%; overflow: hidden;
+            line-height: 0; height: 60px;
+        }
+        .section-divider svg { display: block; width: 100%; height: 100%; }
+        .section-divider.flip { transform: scaleY(-1); }
+
+        /* ── Tab color themes ── */
+        .tab-theme-ai    { --tab-color: #0d59f2; --tab-bg: rgba(13,89,242,0.06); }
+        .tab-theme-teach { --tab-color: #10b981; --tab-bg: rgba(16,185,129,0.06); }
+        .tab-theme-event { --tab-color: #f97316; --tab-bg: rgba(249,115,22,0.06); }
+        .tab-theme-esport{ --tab-color: #a855f7; --tab-bg: rgba(168,85,247,0.06); }
+        .tab-theme-media { --tab-color: #ec4899; --tab-bg: rgba(236,72,153,0.06); }
+        .tab-theme-chain { --tab-color: #f59e0b; --tab-bg: rgba(245,158,11,0.06); }
+
+        [class*="tab-theme-"] .bento-item:hover,
+        [class*="tab-theme-"] .service-card:hover {
+            border-color: var(--tab-color) !important;
+            box-shadow: 0 0 30px color-mix(in srgb, var(--tab-color) 15%, transparent);
+        }
+
+        /* ── Case card hover expand ── */
+        .case-expand {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.23,1,0.32,1);
+        }
+        .service-card:hover .case-expand { max-height: 120px; }
+        .service-card { transition: all 0.4s cubic-bezier(0.23,1,0.32,1); }
+        @media (hover: hover) {
+            .service-card:hover { transform: translateY(-4px); }
+        }
+
+        /* ── Bottom nav mobile ── */
+        #bottom-nav {
+            display: none;
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: rgba(5,6,8,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            z-index: 300; padding: 8px 0 env(safe-area-inset-bottom, 8px);
+        }
+        @media (max-width: 768px) {
+            #bottom-nav { display: flex; }
+            body { padding-bottom: 68px; }
+            #back-top { bottom: 80px; }
+        }
+        .bnav-item {
+            flex: 1; display: flex; flex-direction: column; align-items: center;
+            gap: 3px; padding: 6px 4px; text-decoration: none;
+            color: #475569; transition: color 0.2s ease; font-size: 9px;
+            font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+        }
+        .bnav-item .material-icons { font-size: 20px; }
+        .bnav-item:hover, .bnav-item.active { color: var(--primary); }
+        .bnav-item.active .material-icons { color: var(--primary); }
+
+        section, footer, nav { position: relative; z-index: 2; }
     </style>
 </head>
 <body class="font-display selection:bg-primary/30">
 
-    <canvas id="bg-canvas"></canvas>
-    <div id="cursor-dot"></div>
-    <div id="cursor-outline"></div>
+<canvas id="bg-canvas"></canvas>
+<div id="cursor-dot"></div>
+<div id="cursor-outline"></div>
+<div id="scroll-bar"></div>
 
-    <nav class="fixed top-0 w-full z-[100] p-4 md:p-6">
-        <div class="max-w-6xl mx-auto flex justify-between items-center glass-card rounded-2xl px-6 md:px-10 py-4 shadow-2xl">
-            <div class="flex items-center gap-3">
-                <div class="w-3 h-3 bg-primary rounded-full animate-ping"></div>
-                <span class="font-bold tracking-tighter text-xl text-white uppercase">CHIMITDORZHI STUDIO</span>
+<!-- ── Sticky Contact Panel (десктоп) ── -->
+<div id="sticky-contact">
+    <a class="sticky-btn" href="https://t.me/chimitdorzhi" target="_blank" rel="noopener" aria-label="Telegram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        <span class="sticky-tooltip">Telegram</span>
+    </a>
+    <a class="sticky-btn" href="mailto:chimitdorzhi26@gmail.com" aria-label="Email">
+        <span class="material-icons text-lg">mail</span>
+        <span class="sticky-tooltip">Email</span>
+    </a>
+    <div class="sticky-status">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse flex-shrink-0"></span>
+        <span style="font-size:7px">Открыт</span>
+    </div>
+</div>
+
+<!-- ── Bottom Nav (мобильный) ── -->
+<nav id="bottom-nav">
+    <a class="bnav-item active" href="#" data-section="hero">
+        <span class="material-icons">home</span>
+        <span>Главная</span>
+    </a>
+    <a class="bnav-item" href="#about" data-section="about">
+        <span class="material-icons">person</span>
+        <span>Обо мне</span>
+    </a>
+    <a class="bnav-item" href="#activities" data-section="activities">
+        <span class="material-icons">work</span>
+        <span>Дело</span>
+    </a>
+    <a class="bnav-item" href="#services" data-section="services">
+        <span class="material-icons">build</span>
+        <span>Услуги</span>
+    </a>
+    <a class="bnav-item" href="#contact" data-section="contact">
+        <span class="material-icons">chat</span>
+        <span>Контакт</span>
+    </a>
+</nav>
+
+<button id="back-top" aria-label="Наверх">
+    <span class="material-icons text-white text-xl">arrow_upward</span>
+</button>
+
+<!-- ══════════════════ NAV ══════════════════ -->
+<nav class="fixed top-0 w-full z-[200] p-3 md:p-5">
+    <div class="max-w-6xl mx-auto flex justify-between items-center glass-card rounded-2xl px-5 md:px-8 py-3 shadow-2xl">
+        <a href="#" class="flex items-center gap-2.5 group">
+            <div class="relative">
+                <div class="w-2.5 h-2.5 bg-primary rounded-full"></div>
+                <div class="w-2.5 h-2.5 bg-primary rounded-full absolute inset-0 animate-ping opacity-60"></div>
             </div>
-            
-            <div class="hidden md:flex gap-10 text-[10px] font-black tracking-[0.2em] uppercase">
-                <a class="hover:text-primary transition-colors" href="#expertise">Экспертиза</a>
-                <a class="hover:text-primary transition-colors" href="#stats">Показатели</a>
-                <a class="hover:text-primary transition-colors" href="#contact">Терминал</a>
-            </div>
+            <span class="font-bold tracking-tight text-sm md:text-base text-white uppercase leading-tight">СТУДИЯ<br class="hidden sm:block"/> ЧИМИТДОРЖИ</span>
+        </a>
 
-            <button id="menu-toggle" class="md:hidden text-white"><span class="material-icons">menu</span></button>
-
-            <a class="hidden md:flex bg-primary px-6 py-2.5 rounded-xl font-bold text-[11px] tracking-widest hover:scale-105 transition-transform" href="https://t.me/chimitdorzhi">
-                СВЯЗАТЬСЯ
-            </a>
+        <div class="hidden md:flex gap-7 text-[10px] font-bold tracking-[0.16em] uppercase text-slate-400">
+            <a class="hover:text-primary transition-colors py-1" href="#about">Обо мне</a>
+            <a class="hover:text-primary transition-colors py-1" href="#activities">Деятельность</a>
+            <a class="hover:text-primary transition-colors py-1" href="#services">Услуги</a>
+            <a class="hover:text-primary transition-colors py-1" href="#cases">Кейсы</a>
+            <a class="hover:text-primary transition-colors py-1" href="#contact">Контакт</a>
         </div>
 
-        <div id="mobile-nav" class="hidden absolute top-24 left-4 right-4 glass-card rounded-3xl p-8 flex-col gap-6 text-center md:hidden shadow-3xl">
-            <a class="text-xl font-bold border-b border-white/5 pb-4" href="#expertise">ЭКСПЕРТИЗА</a>
-            <a class="text-xl font-bold border-b border-white/5 pb-4" href="#stats">ПОКАЗАТЕЛИ</a>
-            <a class="bg-primary py-4 rounded-2xl font-black text-xs tracking-widest mt-4" href="https://t.me/chimitdorzhi">TELEGRAM</a>
+        <div class="flex items-center gap-3">
+            <a class="hidden md:flex bg-primary px-5 py-2 rounded-xl font-bold text-[11px] tracking-widest hover:bg-accent transition-colors text-white" href="https://t.me/chimitdorzhi" target="_blank" rel="noopener">СВЯЗАТЬСЯ</a>
+            <button id="menu-toggle" class="md:hidden text-white glass-card p-2 rounded-xl" aria-label="Меню">
+                <span class="material-icons" id="menu-icon">menu</span>
+            </button>
         </div>
-    </nav>
+    </div>
 
-    <header class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-20 relative">
-        <div class="absolute inset-0 grid-pattern -z-10"></div>
-        
-        <div class="reveal text-center">
-            <div class="font-mono text-primary text-xs tracking-[0.4em] mb-6 uppercase">
-                > ИНИЦИАЛИЗАЦИЯ SENIOR_ENGINEER_v6.0
+    <div id="mobile-nav" class="absolute top-20 left-3 right-3 glass-card rounded-3xl p-6 flex-col gap-1 md:hidden shadow-2xl border border-white/5 z-[300]">
+        <a class="text-base font-bold py-3 border-b border-white/5 block hover:text-primary transition-colors" href="#about">ОБО МНЕ</a>
+        <a class="text-base font-bold py-3 border-b border-white/5 block hover:text-primary transition-colors" href="#activities">ДЕЯТЕЛЬНОСТЬ</a>
+        <a class="text-base font-bold py-3 border-b border-white/5 block hover:text-primary transition-colors" href="#services">УСЛУГИ</a>
+        <a class="text-base font-bold py-3 border-b border-white/5 block hover:text-primary transition-colors" href="#cases">КЕЙСЫ</a>
+        <a class="text-base font-bold py-3 border-b border-white/5 block hover:text-primary transition-colors" href="#contact">КОНТАКТ</a>
+        <a class="bg-primary py-3.5 rounded-2xl font-black text-xs tracking-widest mt-3 block text-center text-white hover:bg-accent transition-colors" href="https://t.me/chimitdorzhi" target="_blank" rel="noopener">TELEGRAM</a>
+    </div>
+</nav>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section class="relative min-h-screen flex flex-col justify-center items-center px-5 pt-24 pb-16">
+    <div class="absolute inset-0 grid-pattern -z-10 pointer-events-none"></div>
+    <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/5 w-96 h-96 bg-accent/4 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="reveal text-center max-w-5xl mx-auto">
+        <div class="font-mono text-primary text-[10px] md:text-xs tracking-[0.35em] mb-5 uppercase inline-flex items-center gap-2">
+            <span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+            ДАРИЖАПОВ ЧИМИТДОРЖИ · ЧИТА · РОССИЯ
+        </div>
+
+        <h1 class="text-[2.6rem] sm:text-6xl md:text-[7rem] font-bold tracking-tighter leading-[0.88] mb-6 text-white uppercase">
+            <span id="typing-role">Предприниматель</span><span class="typing-cursor-hero"></span><br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-slate-300">&amp; ВИЗИОНЕР</span>
+        </h1>
+
+        <p class="max-w-2xl mx-auto text-slate-400 text-base md:text-lg font-normal mb-8 leading-relaxed px-2">
+            Предприниматель, <span class="text-white font-semibold">AI/ML инженер</span>, преподаватель, организатор <span class="text-white font-semibold">50+ мероприятий</span> федерального и международного уровня. Строю системы, обучаю людей, создаю события.
+        </p>
+
+        <!-- Роли -->
+        <div class="flex flex-wrap justify-center gap-2 mb-8">
+            <span class="tech-tag text-primary" style="border-color:rgba(13,89,242,.4)">🤖 AI/ML Эксперт</span>
+            <span class="tech-tag">🎓 Преподаватель</span>
+            <span class="tech-tag">🎪 Event-организатор</span>
+            <span class="tech-tag">💼 Предприниматель</span>
+            <span class="tech-tag">🎵 Продюсер</span>
+        </div>
+
+        <!-- Быстрые метрики -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10">
+            <div class="glass-card rounded-2xl px-5 py-3 text-center min-w-[80px]">
+                <div class="text-xl font-bold text-white counter" data-target="16">0</div>
+                <div class="text-[9px] text-slate-500 uppercase tracking-widest font-bold mt-0.5">Лет опыта</div>
             </div>
-            <h1 class="text-5xl md:text-[8rem] font-bold tracking-tighter leading-[0.85] mb-8 text-glow text-white uppercase">
-                МАСШТАБИРУЕМАЯ<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-white text-6xl md:text-[9rem]">АРХИТЕКТУРА</span>
-            </h1>
-            <p class="max-w-2xl mx-auto text-slate-400 text-lg md:text-xl font-light mb-12 leading-relaxed">
-                <span class="text-white font-medium">15+ лет инженерного опыта.</span> Проектирование AI-агентов, VDI инфраструктур и высоконагруженных систем.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                <a class="px-12 py-5 bg-primary text-white font-black text-xs tracking-[0.2em] rounded-2xl shadow-2xl hover:bg-accent transition-all" href="#contact">СОЗДАТЬ СИСТЕМУ</a>
-                <a class="px-12 py-5 border border-slate-800 text-slate-300 font-black text-xs tracking-[0.2em] rounded-2xl hover:bg-white/5 transition-all" href="#expertise">КОМПЕТЕНЦИИ</a>
+            <div class="glass-card rounded-2xl px-5 py-3 text-center min-w-[80px]">
+                <div class="text-xl font-bold text-primary counter" data-target="50">0</div>
+                <div class="text-[9px] text-slate-500 uppercase tracking-widest font-bold mt-0.5">Ивентов</div>
+            </div>
+            <div class="glass-card rounded-2xl px-5 py-3 text-center min-w-[80px]">
+                <div class="text-xl font-bold text-white">3M+</div>
+                <div class="text-[9px] text-slate-500 uppercase tracking-widest font-bold mt-0.5">Просмотров</div>
+            </div>
+            <div class="glass-card rounded-2xl px-5 py-3 text-center min-w-[80px]">
+                <div class="text-xl font-bold text-white counter" data-target="100">0</div>
+                <div class="text-[9px] text-slate-500 uppercase tracking-widest font-bold mt-0.5">Подкастов</div>
             </div>
         </div>
-    </section>
 
-    <section id="expertise" class="py-24 md:py-40 px-6 max-w-6xl mx-auto">
-        <div class="reveal mb-20 text-center md:text-left">
-            <h2 class="text-4xl md:text-6xl font-bold tracking-tighter">Ключевые <span class="text-primary">Направления</span></h2>
-            <div class="h-px w-24 bg-primary mt-6 mx-auto md:mx-0"></div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center px-2">
+            <a class="px-8 py-4 bg-primary text-white font-black text-[11px] tracking-[0.2em] rounded-2xl shadow-xl hover:bg-accent transition-colors uppercase" href="#contact">СВЯЗАТЬСЯ</a>
+            <a class="px-8 py-4 border border-slate-700 text-slate-300 font-black text-[11px] tracking-[0.2em] rounded-2xl hover:bg-white/5 transition-colors uppercase" href="#activities">ДЕЯТЕЛЬНОСТЬ</a>
         </div>
+    </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
-            <div class="bento-item glass-card md:col-span-2 md:row-span-2 rounded-[2.5rem] p-10 flex flex-col justify-between reveal">
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-35">
+        <span class="text-[9px] font-mono text-slate-500 tracking-widest uppercase">Скролл</span>
+        <div class="w-px h-10 bg-gradient-to-b from-primary to-transparent animate-pulse"></div>
+    </div>
+</section>
+
+<!-- ══════════════════ ABOUT ══════════════════ -->
+<div class="section-divider" style="margin-bottom:-2px">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="rgba(13,89,242,0.04)"/>
+        <path d="M0,40 C480,10 960,55 1440,40 L1440,60 L0,60 Z" fill="rgba(13,89,242,0.03)"/>
+    </svg>
+</div>
+<section id="about" class="py-20 md:py-32 px-5 max-w-6xl mx-auto">
+    <div class="reveal mb-14 text-center md:text-left">
+        <div class="font-mono text-primary text-[10px] tracking-[0.3em] uppercase mb-3">// 01 ОБО МНЕ</div>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tighter">Кто такой <span class="text-primary">Чимитдоржи</span></h2>
+        <div class="h-px w-16 bg-primary mt-5 mx-auto md:mx-0"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Bio card -->
+        <div class="lg:col-span-2 reveal glass-card rounded-[2rem] p-8">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-3xl font-bold text-white flex-shrink-0">Ч</div>
                 <div>
-                    <span class="material-icons text-primary text-6xl mb-8">psychology</span>
-                    <h3 class="text-3xl font-bold text-white mb-4">Архитектор AI & ML</h3>
-                    <p class="text-slate-400 leading-relaxed">Разработка RAG-систем, кастомных LLM-агентов и автоматизация интеллектуальных бизнес-процессов.</p>
-                </div>
-                <div class="font-mono text-[10px] text-primary bg-primary/10 p-4 rounded-xl uppercase">
-                    Статус: Оптимизированное внедрение
+                    <div class="font-bold text-white text-xl">Дарижапов Чимитдоржи</div>
+                    <div class="text-slate-500 text-sm font-mono mt-0.5">AI/ML Expert · Teacher · Founder</div>
+                    <div class="flex gap-2 mt-2 flex-wrap">
+                        <span class="tech-tag">📍 Забайкальский край, Россия</span>
+                        <span class="tech-tag">🇷🇺 Россия</span>
+                        <span class="tech-tag">🌐 Удалённо</span>
+                    </div>
                 </div>
             </div>
+            <p class="text-slate-400 leading-relaxed text-sm mb-4">
+                Высококвалифицированный IT-специалист с <strong class="text-white">16+ годами опыта</strong> в разработке, AI/ML и предпринимательстве. Уникальное сочетание глубокой технической экспертизы с педагогическими и бизнес-компетенциями.
+            </p>
+            <p class="text-slate-400 leading-relaxed text-sm mb-6">
+                Специализируюсь на создании AI-решений на основе LLM, автоматизации процессов и обучении нового поколения IT-специалистов. Организатор <strong class="text-white">50+ мероприятий</strong> федерального и международного уровня — от блокчейн-саммитов до киберспортивных турниров.
+            </p>
+            <!-- Языки -->
+            <div class="grid grid-cols-3 gap-3">
+                <div class="bg-white/3 rounded-xl p-3 text-center border border-white/5">
+                    <div class="text-xs font-bold text-white">Русский</div>
+                    <div class="text-[9px] text-slate-500 mt-0.5 font-mono">Родной</div>
+                </div>
+                <div class="bg-white/3 rounded-xl p-3 text-center border border-white/5">
+                    <div class="text-xs font-bold text-white">Бурятский</div>
+                    <div class="text-[9px] text-slate-500 mt-0.5 font-mono">Родной</div>
+                </div>
+                <div class="bg-white/3 rounded-xl p-3 text-center border border-white/5">
+                    <div class="text-xs font-bold text-white">Английский</div>
+                    <div class="text-[9px] text-slate-500 mt-0.5 font-mono">B2</div>
+                </div>
+            </div>
+        </div>
 
-            <div class="bento-item glass-card md:col-span-2 rounded-[2.5rem] p-8 reveal">
-                <div class="flex items-center gap-6">
-                    <span class="material-icons text-accent text-4xl">dns</span>
+        <!-- Timeline -->
+        <div class="reveal glass-card rounded-[2rem] p-7">
+            <div class="font-mono text-primary text-[10px] tracking-widest uppercase mb-5">// ПУТЬ</div>
+            <div class="flex flex-col gap-5">
+                <div class="timeline-item">
+                    <div class="text-[10px] font-mono text-primary mb-1">2024 — 2025</div>
+                    <div class="font-bold text-white text-sm">Преподаватель ЗабГУ</div>
+                    <div class="text-slate-500 text-xs mt-0.5">AI, нейросети, администрирование БД</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="text-[10px] font-mono text-primary mb-1">2022 — н.в.</div>
+                    <div class="font-bold text-white text-sm">AI-архитектор & Студия</div>
+                    <div class="text-slate-500 text-xs mt-0.5">Собственная практика, LLM-решения</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="text-[10px] font-mono text-primary mb-1">2019 — 2022</div>
+                    <div class="font-bold text-white text-sm">Рук. представительства ДФО</div>
+                    <div class="text-slate-500 text-xs mt-0.5">РАКИБ — блокчейн и криптовалюты</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="text-[10px] font-mono text-primary mb-1">2021</div>
+                    <div class="font-bold text-white text-sm">Преподаватель, колледж</div>
+                    <div class="text-slate-500 text-xs mt-0.5">Системное администрирование</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="text-[10px] font-mono text-primary mb-1">2010 — н.в.</div>
+                    <div class="font-bold text-white text-sm">Фриланс & Предпринимательство</div>
+                    <div class="text-slate-500 text-xs mt-0.5">AI-решения, разработка, события</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Навыки по категориям -->
+    <div class="reveal mt-6 glass-card rounded-[2rem] p-8">
+        <div class="font-mono text-primary text-[10px] tracking-widest uppercase mb-7">// ТЕХНИЧЕСКИЕ НАВЫКИ</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Программирование -->
+            <div>
+                <div class="text-[10px] font-bold tracking-wider uppercase text-slate-500 mb-4 flex items-center gap-2">
+                    <span class="material-icons text-primary text-sm">code</span>Программирование
+                </div>
+                <div class="flex flex-col gap-3">
                     <div>
-                        <h3 class="text-xl font-bold text-white">VDI и Облака</h3>
-                        <p class="text-slate-500 text-sm mt-1">Enterprise-решения виртуализации рабочих мест и инфраструктуры.</p>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">Python</span><span class="text-primary font-mono">5/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="--w:1"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">JavaScript / Node.js</span><span class="text-primary font-mono">5/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="--w:1"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">PHP</span><span class="text-primary font-mono">4/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="transform:scaleX(0); --target:0.8"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">Java / C# / C++</span><span class="text-primary font-mono">4/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="transform:scaleX(0); --target:0.8"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">Golang</span><span class="text-primary font-mono">3/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="transform:scaleX(0); --target:0.6"></div></div>
                     </div>
                 </div>
             </div>
-
-            <div class="bento-item glass-card rounded-[2.5rem] p-8 flex flex-col justify-center items-center reveal text-center">
-                <div class="text-5xl font-bold text-white mb-2">15+</div>
-                <div class="text-[9px] font-black tracking-widest text-slate-500 uppercase">Лет опыта</div>
+            <!-- AI / ML -->
+            <div>
+                <div class="text-[10px] font-bold tracking-wider uppercase text-slate-500 mb-4 flex items-center gap-2">
+                    <span class="material-icons text-primary text-sm">psychology</span>AI / ML
+                </div>
+                <div class="flex flex-col gap-3">
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">LLM Integration</span><span class="text-primary font-mono">5/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">Computer Vision</span><span class="text-primary font-mono">4/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="transform:scaleX(0); --target:0.8"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">NLP</span><span class="text-primary font-mono">4/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="transform:scaleX(0); --target:0.8"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">TensorFlow / PyTorch</span><span class="text-primary font-mono">4/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="transform:scaleX(0); --target:0.8"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">LangChain</span><span class="text-primary font-mono">4/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="transform:scaleX(0); --target:0.8"></div></div>
+                    </div>
+                </div>
             </div>
-
-            <div class="bento-item glass-card rounded-[2.5rem] p-8 flex flex-col justify-center items-center reveal text-center">
-                <div class="text-3xl font-bold text-primary mb-2">ЧИТА</div>
-                <div class="text-[9px] font-black tracking-widest text-slate-500 uppercase">Локация</div>
+            <!-- Инфраструктура -->
+            <div>
+                <div class="text-[10px] font-bold tracking-wider uppercase text-slate-500 mb-4 flex items-center gap-2">
+                    <span class="material-icons text-primary text-sm">storage</span>Инфраструктура
+                </div>
+                <div class="flex flex-col gap-3">
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">Docker</span><span class="text-primary font-mono">5/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">PostgreSQL / MongoDB</span><span class="text-primary font-mono">5/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">Big Data</span><span class="text-primary font-mono">4/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="transform:scaleX(0); --target:0.8"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">DevOps / CI/CD</span><span class="text-primary font-mono">3/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="transform:scaleX(0); --target:0.6"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs mb-1.5"><span class="text-slate-300">Unix / Linux</span><span class="text-primary font-mono">3/5</span></div>
+                        <div class="skill-bar"><div class="skill-fill" style="transform:scaleX(0); --target:0.6"></div></div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <footer id="contact" class="py-24 md:py-40 px-6 border-t border-white/5 relative bg-[#07080a]">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col lg:flex-row justify-between items-start gap-20">
-                <div class="reveal lg:w-2/3 text-center lg:text-left">
-                    <h2 class="text-6xl md:text-8xl font-bold tracking-tighter mb-10 text-white leading-none uppercase">ГОТОВЫ К <br/><span class="text-slate-800">НОВОМУ УРОВНЮ?</span></h2>
-                    <div class="flex flex-col md:flex-row gap-6 justify-center lg:justify-start">
-                        <a class="bg-white text-black px-10 py-5 rounded-2xl font-black text-xs tracking-[0.2em] hover:bg-primary hover:text-white transition-all shadow-2xl uppercase" href="https://t.me/chimitdorzhi">
-                            НАПИСАТЬ В TELEGRAM <span class="material-icons text-sm ml-2">north_east</span>
-                        </a>
-                    </div>
+    <!-- Государственные сертификаты -->
+    <div class="reveal mt-6 glass-card rounded-[2rem] p-8 border border-primary/20" style="background: linear-gradient(135deg, rgba(13,89,242,0.06) 0%, rgba(15,17,21,0.7) 100%);">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-7">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center flex-shrink-0">
+                    <span class="material-icons text-primary text-3xl">verified</span>
                 </div>
-
-                <div class="reveal lg:w-1/3 glass-card rounded-3xl p-8 font-mono text-[11px] text-slate-500 w-full">
-                    <div class="flex items-center gap-2 mb-6">
-                        <div class="w-3 h-3 rounded-full bg-red-500/20"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500/20"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500/20"></div>
-                    </div>
-                    <p class="text-primary mb-2">> ПОЛЬЗОВАТЕЛЬ: Chimitdorzhi</p>
-                    <p class="mb-2">> РОЛЬ: Senior_IT_Engineer</p>
-                    <p class="mb-2">> УЗЕЛ: Zabaikalsky_Krai</p>
-                    <p class="mb-6">> ПОЧТА: contact@chimitdorzhi.studio</p>
-                    <p class="animate-pulse text-white">> _СИСТЕМА_ГОТОВА</p>
+                <div>
+                    <div class="font-mono text-primary text-[10px] tracking-widest uppercase mb-1">// ГОСУДАРСТВЕННАЯ ВЕРИФИКАЦИЯ</div>
+                    <h3 class="text-xl font-bold text-white">Сертификаты Госуслуги РФ</h3>
+                    <p class="text-slate-400 text-sm mt-0.5">gosuslugi.ru — официальная государственная верификация навыков · Действительны до марта 2027</p>
                 </div>
             </div>
-            
-            <div class="mt-24 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 opacity-30">
-                <p class="text-[10px] font-bold tracking-widest uppercase">© 2026 Студия Чимитдоржи. Бескомпромиссная инженерия.</p>
-                <div class="flex gap-8 text-[10px] font-bold uppercase">
-                    <span>ИИ & ML</span>
-                    <span>VDI</span>
-                    <span>Системы</span>
+            <div class="flex-shrink-0">
+                <div class="bg-primary/10 border border-primary/25 rounded-2xl px-5 py-3 text-center">
+                    <div class="text-2xl font-bold text-primary">13+</div>
+                    <div class="text-[9px] text-slate-500 uppercase tracking-wider font-bold">Сертификатов</div>
                 </div>
             </div>
         </div>
-    </footer>
+        <div class="flex flex-wrap gap-2">
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">🐍 Python</span>
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">🗄️ SQL</span>
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">🐳 Docker</span>
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">☕ Java</span>
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">⚙️ C++</span>
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">🔷 C#</span>
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">🐹 Go</span>
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">📂 Git</span>
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">🐧 Linux</span>
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">🤖 ML</span>
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">🔗 API</span>
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">🏛️ OOP</span>
+            <span class="tech-tag" style="border-color:rgba(13,89,242,.35); color:#93c5fd;">+ другие</span>
+        </div>
+        <div class="mt-5 pt-5 border-t border-white/5 flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
+            <p class="text-slate-500 text-xs">Также верифицирован на <span class="text-white font-semibold">HeadHunter (hh.ru)</span> — Advanced/Intermediate навыки до марта 2027</p>
+            <div class="flex gap-2 flex-shrink-0">
+                <span class="bg-green-500/10 border border-green-500/20 text-green-400 text-[9px] font-bold tracking-wider uppercase px-3 py-1.5 rounded-full">● Действительны</span>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
+<!-- ══════════════════ ACTIVITIES (TABS) ══════════════════ -->
+<div class="section-divider flip" style="margin-top:-2px; margin-bottom:-2px">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,20 C480,55 960,5 1440,35 L1440,60 L0,60 Z" fill="rgba(75,133,246,0.05)"/>
+    </svg>
+</div>
+<section id="activities" class="py-20 md:py-32 px-5 border-t border-white/4">
+    <div class="max-w-6xl mx-auto">
+        <div class="reveal mb-12 text-center md:text-left">
+            <div class="font-mono text-primary text-[10px] tracking-[0.3em] uppercase mb-3">// 02 ДЕЯТЕЛЬНОСТЬ</div>
+            <h2 class="text-3xl md:text-5xl font-bold tracking-tighter">Чем я <span class="text-primary">занимаюсь</span></h2>
+            <div class="h-px w-16 bg-primary mt-5 mx-auto md:mx-0"></div>
+        </div>
 
-        const dot = document.getElementById('cursor-dot');
-        const outline = document.getElementById('cursor-outline');
-        
-        window.addEventListener('mousemove', (e) => {
-            gsap.to(dot, {x: e.clientX, y: e.clientY, duration: 0});
-            gsap.to(outline, {x: e.clientX - 20, y: e.clientY - 20, duration: 0.15});
-        });
+        <!-- Tabs -->
+        <div class="reveal flex gap-2 flex-wrap mb-8">
+            <button class="tab-btn active" data-tab="ai">🤖 AI / ML</button>
+            <button class="tab-btn" data-tab="teaching">🎓 Преподавание</button>
+            <button class="tab-btn" data-tab="events">🎪 Events</button>
+            <button class="tab-btn" data-tab="esports">🎮 Киберспорт</button>
+            <button class="tab-btn" data-tab="media">🎵 Медиа</button>
+            <button class="tab-btn" data-tab="blockchain">₿ Блокчейн</button>
+        </div>
 
-        document.querySelectorAll('a, button, .bento-item').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                outline.style.transform += ' scale(1.5)';
-                outline.style.background = 'rgba(13, 89, 242, 0.05)';
-            });
-            el.addEventListener('mouseleave', () => {
-                outline.style.transform = outline.style.transform.replace(' scale(1.5)', '');
-                outline.style.background = 'transparent';
-            });
-        });
+        <!-- TAB: AI/ML -->
+        <div class="tab-panel active tab-theme-ai" id="tab-ai">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="bento-item glass-card rounded-[2rem] p-8 md:row-span-2 reveal flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
+                            <span class="material-icons text-primary text-3xl">psychology</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">AI/ML Разработка</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-5">Разработка AI-решений: интеграция LLM (GPT, Claude, Gemini, DeepSeek, QWEN, Mistral), создание чат-ботов и виртуальных ассистентов. Работа с векторными БД — Pinecone, Weaviate.</p>
+                        <ul class="text-slate-400 text-sm space-y-2 mb-6">
+                            <li class="flex gap-2"><span class="text-primary flex-shrink-0">→</span>Системы обработки документов с AI</li>
+                            <li class="flex gap-2"><span class="text-primary flex-shrink-0">→</span>Голосовые ассистенты</li>
+                            <li class="flex gap-2"><span class="text-primary flex-shrink-0">→</span>Платформы генерации контента</li>
+                            <li class="flex gap-2"><span class="text-primary flex-shrink-0">→</span>Обучение моделей на кастомных датасетах</li>
+                            <li class="flex gap-2"><span class="text-primary flex-shrink-0">→</span>RAG-системы, LangChain</li>
+                        </ul>
+                        <div class="tags-scroll">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">LangChain</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">Docker</span>
+                        </div>
+                    </div>
+                    <div class="font-mono text-[9px] text-primary bg-primary/8 border border-primary/15 p-3 rounded-xl uppercase mt-6">
+                        ● Статус: Открыт к проектам
+                    </div>
+                </div>
+                <div class="bento-item glass-card rounded-[2rem] p-7 reveal">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-4">
+                        <span class="material-icons text-blue-400 text-2xl">record_voice_over</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Голосовые ассистенты</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Разработка голосовых AI-ассистентов под бизнес-задачи. Распознавание речи, диалоговые системы, интеграция с корпоративными сервисами.</p>
+                </div>
+                <div class="bento-item glass-card rounded-[2rem] p-7 reveal">
+                    <div class="w-12 h-12 rounded-2xl bg-violet-500/10 flex items-center justify-center mb-4">
+                        <span class="material-icons text-violet-400 text-2xl">database</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Сертификаты 2026</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-3">Свежие сертификаты Vanderbilt University (Coursera) и MongoDB Inc. по AI агентам и векторному поиску.</p>
+                    <div class="tags-scroll">
+                        <span class="tech-tag">Vanderbilt</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Coursera</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        gsap.utils.toArray('.reveal').forEach(el => {
-            gsap.to(el, {
-                scrollTrigger: { trigger: el, start: "top 90%" },
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "expo.out"
-            });
-        });
+        <!-- TAB: Teaching -->
+        <div class="tab-panel tab-theme-teach" id="tab-teaching">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="bento-item glass-card rounded-[2rem] p-8 reveal">
+                    <div class="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center mb-6">
+                        <span class="material-icons text-green-400 text-3xl">school</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">ЗабГУ · Март 2024 — Март 2025</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Лекции и мастер-классы по нейронным сетям. Администрирование БД. Применение AI для проверки научных работ. Подкасты и онлайн-трансляции.</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">Организация киберспортивных мероприятий и IT-решений для партнёров вуза.</p>
+                </div>
+                <div class="bento-item glass-card rounded-[2rem] p-8 reveal">
+                    <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 flex items-center justify-center mb-6">
+                        <span class="material-icons text-yellow-400 text-3xl">menu_book</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Дисциплины</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="text-slate-400 text-xs flex gap-1.5 items-start"><span class="text-primary mt-0.5">▸</span>Python, JS, C++, PHP, Java, Go</div>
+                        <div class="text-slate-400 text-xs flex gap-1.5 items-start"><span class="text-primary mt-0.5">▸</span>AI и машинное обучение</div>
+                        <div class="text-slate-400 text-xs flex gap-1.5 items-start"><span class="text-primary mt-0.5">▸</span>БД: SQL, PostgreSQL, MongoDB</div>
+                        <div class="text-slate-400 text-xs flex gap-1.5 items-start"><span class="text-primary mt-0.5">▸</span>Веб-разработка и API</div>
+                        <div class="text-slate-400 text-xs flex gap-1.5 items-start"><span class="text-primary mt-0.5">▸</span>DevOps и Docker</div>
+                        <div class="text-slate-400 text-xs flex gap-1.5 items-start"><span class="text-primary mt-0.5">▸</span>Алгоритмы и структуры данных</div>
+                        <div class="text-slate-400 text-xs flex gap-1.5 items-start"><span class="text-primary mt-0.5">▸</span>Scrum / OKR</div>
+                        <div class="text-slate-400 text-xs flex gap-1.5 items-start"><span class="text-primary mt-0.5">▸</span>Системный анализ</div>
+                    </div>
+                </div>
+                <div class="md:col-span-2 bento-item glass-card rounded-[2rem] p-7 reveal">
+                    <h3 class="text-lg font-bold text-white mb-5">Образование</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                        <div class="bg-white/3 rounded-2xl p-4 border border-white/5">
+                            <div class="text-primary text-lg mb-2">🎓</div>
+                            <div class="text-white text-sm font-bold mb-0.5">ЗабГУ — Магистратура</div>
+                            <div class="text-slate-400 text-xs">Педагогическое образование</div>
+                            <div class="text-slate-600 text-[10px] font-mono mt-1">2019</div>
+                        </div>
+                        <div class="bg-white/3 rounded-2xl p-4 border border-white/5">
+                            <div class="text-primary text-lg mb-2">🎓</div>
+                            <div class="text-white text-sm font-bold mb-0.5">ЗабГУ — Бакалавриат</div>
+                            <div class="text-slate-400 text-xs">Социально-культурная деятельность</div>
+                            <div class="text-slate-600 text-[10px] font-mono mt-1">2017</div>
+                        </div>
+                        <div class="bg-white/3 rounded-2xl p-4 border border-white/5">
+                            <div class="text-primary text-lg mb-2">📋</div>
+                            <div class="text-white text-sm font-bold mb-0.5">ЗабГУ — ДПО</div>
+                            <div class="text-slate-400 text-xs">Педагог профессионального обучения</div>
+                            <div class="text-slate-600 text-[10px] font-mono mt-1">2019</div>
+                        </div>
+                        <div class="bg-white/3 rounded-2xl p-4 border border-white/5">
+                            <div class="text-primary text-lg mb-2">📜</div>
+                            <div class="text-white text-sm font-bold mb-0.5">АНО ДПО «Феникс»</div>
+                            <div class="text-slate-400 text-xs">Преподаватель информатики и ВТ</div>
+                            <div class="text-slate-600 text-[10px] font-mono mt-1">2021</div>
+                        </div>
+                    </div>
 
-        const btn = document.getElementById('menu-toggle');
-        const nav = document.getElementById('mobile-nav');
-        btn.onclick = () => {
-            nav.classList.toggle('hidden');
-            nav.classList.toggle('active');
-        };
+                    <div class="font-mono text-primary text-[10px] tracking-widest uppercase mb-4">// УДОСТОВЕРЕНИЯ О ПОВЫШЕНИИ КВАЛИФИКАЦИИ</div>
+                    <div class="flex flex-col gap-2">
+                        <div class="flex gap-3 items-start p-3 bg-white/3 rounded-xl border border-white/5">
+                            <span class="text-yellow-400 text-base flex-shrink-0">🏛️</span>
+                            <div>
+                                <div class="text-white text-xs font-bold">Финансовый университет при Правительстве РФ</div>
+                                <div class="text-slate-500 text-[10px]">Карьера и бизнес в киберспорте · 2021</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start p-3 bg-white/3 rounded-xl border border-white/5">
+                            <span class="text-blue-400 text-base flex-shrink-0">🏛️</span>
+                            <div>
+                                <div class="text-white text-xs font-bold">Юго-Западный государственный университет, Курск</div>
+                                <div class="text-slate-500 text-[10px]">Event-менеджмент · Судья по киберспорту · 2022</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start p-3 bg-white/3 rounded-xl border border-white/5">
+                            <span class="text-green-400 text-base flex-shrink-0">🏛️</span>
+                            <div>
+                                <div class="text-white text-xs font-bold">Донской государственный технический университет, Ростов-на-Дону</div>
+                                <div class="text-slate-500 text-[10px]">Тренер по киберспорту · 2023</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start p-3 bg-white/3 rounded-xl border border-white/5">
+                            <span class="text-violet-400 text-base flex-shrink-0">🏛️</span>
+                            <div>
+                                <div class="text-white text-xs font-bold">Российский экономический университет им. Г.В. Плеханова</div>
+                                <div class="text-slate-500 text-[10px]">Цифровая экономика · 2019</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let points = [];
-        
-        const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            points = [];
-            for(let i=0; i<80; i++) points.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5
+        <!-- TAB: Events -->
+        <div class="tab-panel tab-theme-event" id="tab-events">
+            <div class="grid grid-cols-1 gap-5">
+                <!-- Счётчики -->
+                <div class="reveal glass-card rounded-[2rem] p-7">
+                    <div class="flex items-center gap-3 mb-5">
+                        <span class="material-icons text-primary text-2xl">event</span>
+                        <h3 class="text-xl font-bold text-white">50+ мероприятий федерального и международного уровня</h3>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="glass-card rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-white">50+</div>
+                            <div class="text-[9px] text-slate-500 uppercase tracking-wider mt-1">Ивентов</div>
+                        </div>
+                        <div class="glass-card rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-primary">🌍</div>
+                            <div class="text-[9px] text-slate-500 uppercase tracking-wider mt-1">Международные</div>
+                        </div>
+                        <div class="glass-card rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-white">Москва</div>
+                            <div class="text-[9px] text-slate-500 uppercase tracking-wider mt-1">Федеральный</div>
+                        </div>
+                        <div class="glass-card rounded-xl p-4 text-center">
+                            <div class="text-2xl font-bold text-white">2019+</div>
+                            <div class="text-[9px] text-slate-500 uppercase tracking-wider mt-1">С этого года</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Конференции и саммиты -->
+                    <div class="reveal glass-card rounded-[2rem] p-7">
+                        <div class="font-mono text-[10px] text-primary tracking-widest uppercase mb-4 flex items-center gap-2">
+                            <span class="material-icons text-sm">corporate_fare</span>Конференции и саммиты
+                        </div>
+                        <div class="space-y-2.5">
+                            <div class="flex items-start gap-3 p-3 bg-white/3 rounded-xl border border-white/5">
+                                <span class="text-primary text-base flex-shrink-0">⚡</span>
+                                <div>
+                                    <div class="text-white text-sm font-bold">Крипто Саммит РФ</div>
+                                    <div class="text-slate-500 text-xs">2022, Москва — крупнейший блокчейн-саммит в стране</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 bg-white/3 rounded-xl border border-white/5">
+                                <span class="text-cyan-400 text-base flex-shrink-0">🏔️</span>
+                                <div>
+                                    <div class="text-white text-sm font-bold">BlockchainConferenceBaikal</div>
+                                    <div class="text-slate-500 text-xs">2022 — международная конференция</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 bg-white/3 rounded-xl border border-white/5">
+                                <span class="text-orange-400 text-base flex-shrink-0">⛏️</span>
+                                <div>
+                                    <div class="text-white text-sm font-bold">Майнинг Конференция РФ</div>
+                                    <div class="text-slate-500 text-xs">2022, Иркутск — первая конференция легальных майнеров в России</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 bg-white/3 rounded-xl border border-white/5">
+                                <span class="text-yellow-400 text-base flex-shrink-0">⛏️</span>
+                                <div>
+                                    <div class="text-white text-sm font-bold">Майнинг Экспо РФ</div>
+                                    <div class="text-slate-500 text-xs">2022 — единственное специализированное мероприятие в РФ</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 bg-white/3 rounded-xl border border-white/5">
+                                <span class="text-blue-400 text-base flex-shrink-0">📊</span>
+                                <div>
+                                    <div class="text-white text-sm font-bold">МедиаБиз.рф · RWAT.ru · Forum Mining.ru</div>
+                                    <div class="text-slate-500 text-xs">2024–2025 — серия деловых форумов</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 bg-white/3 rounded-xl border border-white/5">
+                                <span class="text-green-400 text-base flex-shrink-0">💻</span>
+                                <div>
+                                    <div class="text-white text-sm font-bold">CryptoZoom.ru · TheTrends.tech</div>
+                                    <div class="text-slate-500 text-xs">CryptoZoom 2022–23 · TheTrends 2023</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-3 bg-white/3 rounded-xl border border-white/5">
+                                <span class="text-red-400 text-base flex-shrink-0">🏙️</span>
+                                <div>
+                                    <div class="text-white text-sm font-bold">Grozny Invest Summit</div>
+                                    <div class="text-slate-500 text-xs">2019 — инвестиционный саммит</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-5">
+                        <!-- Техподдержка спорта -->
+                        <div class="reveal glass-card rounded-[2rem] p-7">
+                            <div class="font-mono text-[10px] text-primary tracking-widest uppercase mb-4 flex items-center gap-2">
+                                <span class="material-icons text-sm">sports</span>Техническая поддержка спортивных мероприятий
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex items-start gap-3 p-3 bg-white/3 rounded-xl border border-white/5">
+                                    <span class="text-base flex-shrink-0">🥊</span>
+                                    <div>
+                                        <div class="text-white text-xs font-bold">Чемпионат России по боксу</div>
+                                        <div class="text-slate-500 text-[10px]">2022, Чита</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 p-3 bg-white/3 rounded-xl border border-white/5">
+                                    <span class="text-base flex-shrink-0">🤼</span>
+                                    <div>
+                                        <div class="text-white text-xs font-bold">Первенство России по вольной борьбе</div>
+                                        <div class="text-slate-500 text-[10px]">2022, Чита</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 p-3 bg-white/3 rounded-xl border border-white/5">
+                                    <span class="text-base flex-shrink-0">⚔️</span>
+                                    <div>
+                                        <div class="text-white text-xs font-bold">«Дух кочевника» — боевое самбо</div>
+                                        <div class="text-slate-500 text-[10px]">2023, международный турнир</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 p-3 bg-white/3 rounded-xl border border-white/5">
+                                    <span class="text-base flex-shrink-0">🎭</span>
+                                    <div>
+                                        <div class="text-white text-xs font-bold">Алтаргана</div>
+                                        <div class="text-slate-500 text-[10px]">2022, международный бурятский фестиваль</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Esports -->
+        <div class="tab-panel tab-theme-esport" id="tab-esports">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="bento-item glass-card rounded-[2rem] p-8 reveal">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6">
+                        <span class="material-icons text-purple-400 text-3xl">sports_esports</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Киберспортивные турниры</h3>
+                    <div class="space-y-3">
+                        <div class="flex gap-3 items-start p-3 bg-white/3 rounded-xl border border-white/5">
+                            <span class="text-primary text-sm flex-shrink-0 mt-0.5">🥇</span>
+                            <div>
+                                <div class="text-white text-sm font-semibold">«Все для победы!»</div>
+                                <div class="text-slate-500 text-xs">2023, Чита — первый в России киберспортивный благотворительный турнир</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start p-3 bg-white/3 rounded-xl border border-white/5">
+                            <span class="text-primary text-sm flex-shrink-0 mt-0.5">🏆</span>
+                            <div>
+                                <div class="text-white text-sm font-semibold">Чемпионат и Кубок Забайкальского края по MLBB</div>
+                                <div class="text-slate-500 text-xs">2022–2023</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start p-3 bg-white/3 rounded-xl border border-white/5">
+                            <span class="text-primary text-sm flex-shrink-0 mt-0.5">🎮</span>
+                            <div>
+                                <div class="text-white text-sm font-semibold">Чемпионат по киберспорту в Калининградской области</div>
+                                <div class="text-slate-500 text-xs">2021</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start p-3 bg-white/3 rounded-xl border border-white/5">
+                            <span class="text-primary text-sm flex-shrink-0 mt-0.5">🎯</span>
+                            <div>
+                                <div class="text-white text-sm font-semibold">Кубки городов Забайкальского края</div>
+                                <div class="text-slate-500 text-xs">Кубок Читы в кинотеатре «Удокан» — серия турниров</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bento-item glass-card rounded-[2rem] p-8 reveal">
+                    <h3 class="text-xl font-bold text-white mb-4">Образование в киберспорте</h3>
+                    <div class="space-y-3 mb-5">
+                        <div class="p-3 bg-white/3 rounded-xl border border-white/5">
+                            <div class="text-white text-sm font-bold">🏋️ Тренер по киберспорту</div>
+                            <div class="text-slate-500 text-xs">ДГТУ, Ростов-на-Дону — 2022</div>
+                        </div>
+                        <div class="p-3 bg-white/3 rounded-xl border border-white/5">
+                            <div class="text-white text-sm font-bold">⚖️ Судья по киберспорту</div>
+                            <div class="text-slate-500 text-xs">ЮЗГУ, Курск — 2022–2023</div>
+                        </div>
+                        <div class="p-3 bg-white/3 rounded-xl border border-white/5">
+                            <div class="text-white text-sm font-bold">💼 Карьера в киберспорте</div>
+                            <div class="text-slate-500 text-xs">Финансовый университет РФ — 2021</div>
+                        </div>
+                    </div>
+                    <div class="font-mono text-[9px] text-primary bg-primary/8 border border-primary/15 p-3 rounded-xl uppercase">
+                        ● Организатор · Тренер · Судья
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Media -->
+        <div class="tab-panel tab-theme-media" id="tab-media">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="md:col-span-2 bento-item glass-card rounded-[2rem] p-8 reveal">
+                    <div class="w-14 h-14 rounded-2xl bg-pink-500/10 flex items-center justify-center mb-6">
+                        <span class="material-icons text-pink-400 text-3xl">music_note</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Музыкальный лейбл AREY</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-5">Основатель и продюсер лейбла Arey. Представлен на международной платформе Beatport. Синтез традиционных бурятских мотивов и современной электронной музыки.</p>
+                    <div class="grid grid-cols-3 gap-3 mb-5">
+                        <div class="text-center bg-white/3 rounded-xl p-3 border border-white/5">
+                            <div class="text-lg font-bold text-white">1M+</div>
+                            <div class="text-[9px] text-slate-500 uppercase">YouTube</div>
+                        </div>
+                        <div class="text-center bg-white/3 rounded-xl p-3 border border-white/5">
+                            <div class="text-lg font-bold text-white">3M+</div>
+                            <div class="text-[9px] text-slate-500 uppercase">Суммарно</div>
+                        </div>
+                        <div class="text-center bg-white/3 rounded-xl p-3 border border-white/5">
+                            <div class="text-lg font-bold text-white">100+</div>
+                            <div class="text-[9px] text-slate-500 uppercase">Подкастов</div>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <span class="tech-tag">Beatport</span>
+                        <span class="tech-tag">YouTube</span>
+                        <span class="tech-tag">Подкасты</span>
+                        <span class="tech-tag">Стримы</span>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-5">
+                    <div class="bento-item glass-card rounded-[2rem] p-6 reveal">
+                        <div class="text-2xl mb-3">🌐</div>
+                        <h3 class="text-base font-bold text-white mb-2">Метавселенная</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Концерт в метавселенной — театр «Амар сайн» (2022). Первопроходец в виртуальных культурных пространствах.</p>
+                    </div>
+                    <div class="bento-item glass-card rounded-[2rem] p-6 reveal">
+                        <div class="text-2xl mb-3">🎖️</div>
+                        <h3 class="text-base font-bold text-white mb-2">Медаль за содействие СВО</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Благотворительный фонд «Крымская Весна» — гражданская и социальная ответственность.</p>
+                    </div>
+                    <div class="bento-item glass-card rounded-[2rem] p-6 reveal">
+                        <div class="text-2xl mb-3">🎙️</div>
+                        <h3 class="text-base font-bold text-white mb-2">Медиаактивность</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Регулярные подкасты, трансляции, образовательные стримы для IT-сообщества.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Blockchain -->
+        <div class="tab-panel tab-theme-chain" id="tab-blockchain">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="bento-item glass-card rounded-[2rem] p-8 reveal">
+                    <div class="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-6">
+                        <span class="material-icons text-orange-400 text-3xl">currency_bitcoin</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">РАКИБ · ДФО</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Руководитель представительства Российской ассоциации криптовалют и блокчейна в Дальневосточном федеральном округе (2019–2022).</p>
+                    <p class="text-slate-400 text-sm leading-relaxed">Развитие блокчейн-экосистемы в регионе. Работа с предпринимателями, регуляторами и сообществом.</p>
+                </div>
+                <div class="bento-item glass-card rounded-[2rem] p-8 reveal">
+                    <h3 class="text-xl font-bold text-white mb-5">Ключевые мероприятия</h3>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-white/3 rounded-xl border border-white/5">
+                            <div class="text-white text-sm font-bold">Крипто Саммит РФ, Москва</div>
+                            <div class="text-slate-500 text-xs">2022 — крупнейший блокчейн-саммит России</div>
+                        </div>
+                        <div class="p-3 bg-white/3 rounded-xl border border-white/5">
+                            <div class="text-white text-sm font-bold">Майнинг Конференция РФ</div>
+                            <div class="text-slate-500 text-xs">2022, Иркутск — первая конференция легальных майнеров</div>
+                        </div>
+                        <div class="p-3 bg-white/3 rounded-xl border border-white/5">
+                            <div class="text-white text-sm font-bold">Майнинг Экспо РФ</div>
+                            <div class="text-slate-500 text-xs">2022 — единственное специализированное мероприятие в РФ</div>
+                        </div>
+                        <div class="p-3 bg-white/3 rounded-xl border border-white/5">
+                            <div class="text-white text-sm font-bold">CryptoZoom.ru</div>
+                            <div class="text-slate-500 text-xs">2022–2023 — онлайн-конференции</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════ SERVICES ══════════════════ -->
+<section id="services" class="py-20 md:py-32 px-5 border-t border-white/4">
+    <div class="max-w-6xl mx-auto">
+        <div class="reveal mb-12 text-center md:text-left">
+            <div class="font-mono text-primary text-[10px] tracking-[0.3em] uppercase mb-3">// 03 УСЛУГИ</div>
+            <h2 class="text-3xl md:text-5xl font-bold tracking-tighter">Чем могу <span class="text-primary">помочь</span></h2>
+            <div class="h-px w-16 bg-primary mt-5 mx-auto md:mx-0"></div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Разработка сайтов -->
+            <div class="service-card reveal">
+                <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-4">
+                    <span class="material-icons text-cyan-400 text-2xl">language</span>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Сайты и веб-приложения</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">Разработка корпоративных сайтов, лендингов, веб-приложений и порталов. Адаптивный дизайн, быстрая загрузка, SEO-оптимизация.</p>
+                <div class="tags-scroll">
+                    <span class="tech-tag">HTML/CSS</span>
+                    <span class="tech-tag">JS</span>
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">PHP</span>
+                </div>
+            </div>
+
+            <!-- Мобильные приложения -->
+            <div class="service-card reveal">
+                <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center mb-4">
+                    <span class="material-icons text-blue-400 text-2xl">phone_android</span>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Мобильные приложения</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">Разработка мобильных приложений под iOS и Android. От MVP до полноценного продукта с интеграцией AI и backend.</p>
+                <div class="tags-scroll">
+                    <span class="tech-tag">iOS</span>
+                    <span class="tech-tag">Android</span>
+                    <span class="tech-tag">API</span>
+                </div>
+            </div>
+
+            <!-- Боты -->
+            <div class="service-card reveal">
+                <div class="w-12 h-12 rounded-2xl bg-teal-500/10 flex items-center justify-center mb-4">
+                    <span class="material-icons text-teal-400 text-2xl">smart_toy</span>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Чат-боты и телеграм-боты</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">Боты для Telegram, WhatsApp, VK. Автоответы, воронки продаж, интеграция с CRM и AI. Работают 24/7 без вашего участия.</p>
+                <div class="tags-scroll">
+                    <span class="tech-tag">Telegram</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">CRM</span>
+                </div>
+            </div>
+
+            <!-- AI агенты -->
+            <div class="service-card reveal">
+                <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-4">
+                    <span class="material-icons text-primary text-2xl">auto_awesome</span>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">AI-агенты и LLM-решения</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">RAG-системы, автономные AI-агенты, интеграция GPT / Claude / Gemini / DeepSeek. Умная автоматизация бизнес-процессов.</p>
+                <div class="tags-scroll">
+                    <span class="tech-tag">LangChain</span>
+                    <span class="tech-tag">RAG</span>
+                    <span class="tech-tag">Agents</span>
+                </div>
+            </div>
+
+            <!-- Автоматизация -->
+            <div class="service-card reveal">
+                <div class="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center mb-4">
+                    <span class="material-icons text-accent text-2xl">settings_suggest</span>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Автоматизация бизнеса</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">Воронки продаж, рассылки, генерация документов, интеграции между сервисами, синхронизация данных. Меньше рутины — больше прибыли.</p>
+                <div class="tags-scroll">
+                    <span class="tech-tag">API</span>
+                    <span class="tech-tag">Zapier</span>
+                    <span class="tech-tag">1С</span>
+                </div>
+            </div>
+
+            <!-- ИТ-инфраструктура -->
+            <div class="service-card reveal">
+                <div class="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center mb-4">
+                    <span class="material-icons text-green-400 text-2xl">dns</span>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">ИТ-инфраструктура</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">Хостинг, SSL, CRM, облачное хранилище, мониторинг, кибербезопасность. Полный ИТ-стек для стабильной работы бизнеса.</p>
+                <div class="tags-scroll">
+                    <span class="tech-tag">VPS</span>
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">Security</span>
+                </div>
+            </div>
+
+            <!-- Обучение -->
+            <div class="service-card reveal">
+                <div class="w-12 h-12 rounded-2xl bg-yellow-500/10 flex items-center justify-center mb-4">
+                    <span class="material-icons text-yellow-400 text-2xl">school</span>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Обучение и менторинг</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">Курсы и индивидуальные занятия по Python, AI/ML, веб-разработке, DevOps. Практико-ориентированный подход с реальными проектами.</p>
+                <div class="tags-scroll">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">AI/ML</span>
+                    <span class="tech-tag">Менторинг</span>
+                </div>
+            </div>
+
+            <!-- Event -->
+            <div class="service-card reveal">
+                <div class="w-12 h-12 rounded-2xl bg-pink-500/10 flex items-center justify-center mb-4">
+                    <span class="material-icons text-pink-400 text-2xl">celebration</span>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Event-менеджмент</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">Организация конференций, хакатонов, киберспортивных турниров. Онлайн-трансляции, техническая поддержка мероприятий.</p>
+                <div class="tags-scroll">
+                    <span class="tech-tag">Конференции</span>
+                    <span class="tech-tag">Киберспорт</span>
+                    <span class="tech-tag">Стримы</span>
+                </div>
+            </div>
+
+            <!-- Маркетинг -->
+            <div class="service-card reveal">
+                <div class="w-12 h-12 rounded-2xl bg-violet-500/10 flex items-center justify-center mb-4">
+                    <span class="material-icons text-violet-400 text-2xl">trending_up</span>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-2">Цифровой маркетинг</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">SMM, контент-план, AI-генерация видео/фото/музыки, репурпозинг контента, аналитика трафика и конверсий.</p>
+                <div class="tags-scroll">
+                    <span class="tech-tag">SMM</span>
+                    <span class="tech-tag">Контент</span>
+                    <span class="tech-tag">AI-контент</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════ CASES ══════════════════ -->
+<section id="cases" class="py-20 md:py-32 px-5 max-w-6xl mx-auto">
+    <div class="reveal mb-12 text-center md:text-left">
+        <div class="font-mono text-primary text-[10px] tracking-[0.3em] uppercase mb-3">// 04 КЕЙСЫ</div>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tighter">Избранные <span class="text-primary">проекты</span></h2>
+        <div class="h-px w-16 bg-primary mt-5 mx-auto md:mx-0"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="service-card reveal border border-white/5">
+            <div class="flex items-center justify-between mb-4">
+                <span class="tech-tag text-primary" style="border-color:rgba(13,89,242,.3)">AI / LLM</span>
+                <span class="font-mono text-[10px] text-slate-500">2024</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Корпоративный RAG-ассистент</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-4">AI-ассистент для компании 500+ сотрудников. Обработка 10 000+ внутренних документов. Сократил время поиска информации на 70%.</p>
+            <div class="tags-scroll mb-3">
+                <span class="tech-tag">LangChain</span><span class="tech-tag">Qdrant</span><span class="tech-tag">GPT-4</span>
+            </div>
+            <div class="case-expand">
+                <div class="pt-3 border-t border-white/5 grid grid-cols-3 gap-2">
+                    <div class="text-center"><div class="text-primary font-bold text-sm">70%</div><div class="text-slate-600 text-[9px]">экономия времени</div></div>
+                    <div class="text-center"><div class="text-primary font-bold text-sm">10K+</div><div class="text-slate-600 text-[9px]">документов</div></div>
+                    <div class="text-center"><div class="text-primary font-bold text-sm">500+</div><div class="text-slate-600 text-[9px]">сотрудников</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card reveal border border-white/5">
+            <div class="flex items-center justify-between mb-4">
+                <span class="tech-tag" style="color:#60a5fa; border-color:rgba(96,165,250,.3); background:rgba(96,165,250,.08)">Event</span>
+                <span class="font-mono text-[10px] text-slate-500">2022</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Крипто Саммит РФ</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-4">Организация крупнейшего блокчейн-саммита России в Москве. Сотни участников, международные спикеры, медиаохват по всей стране.</p>
+            <div class="tags-scroll mb-3">
+                <span class="tech-tag">Event</span><span class="tech-tag">Блокчейн</span><span class="tech-tag">Москва</span>
+            </div>
+            <div class="case-expand">
+                <div class="pt-3 border-t border-white/5 grid grid-cols-3 gap-2">
+                    <div class="text-center"><div class="text-blue-400 font-bold text-sm">№1</div><div class="text-slate-600 text-[9px]">в стране</div></div>
+                    <div class="text-center"><div class="text-blue-400 font-bold text-sm">🌍</div><div class="text-slate-600 text-[9px]">международный</div></div>
+                    <div class="text-center"><div class="text-blue-400 font-bold text-sm">Москва</div><div class="text-slate-600 text-[9px]">федеральный</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card reveal border border-white/5">
+            <div class="flex items-center justify-between mb-4">
+                <span class="tech-tag" style="color:#a78bfa; border-color:rgba(167,139,250,.3); background:rgba(167,139,250,.08)">Автоматизация</span>
+                <span class="font-mono text-[10px] text-slate-500">2023</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Платформа обработки документов</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-4">AI-система автоматической обработки входящих документов: классификация, извлечение данных, маршрутизация. Сократила ручную работу на 80%.</p>
+            <div class="tags-scroll mb-3">
+                <span class="tech-tag">Python</span><span class="tech-tag">FastAPI</span><span class="tech-tag">LLM</span>
+            </div>
+            <div class="case-expand">
+                <div class="pt-3 border-t border-white/5 grid grid-cols-3 gap-2">
+                    <div class="text-center"><div class="text-violet-400 font-bold text-sm">80%</div><div class="text-slate-600 text-[9px]">меньше ручной работы</div></div>
+                    <div class="text-center"><div class="text-violet-400 font-bold text-sm">AI</div><div class="text-slate-600 text-[9px]">классификация</div></div>
+                    <div class="text-center"><div class="text-violet-400 font-bold text-sm">24/7</div><div class="text-slate-600 text-[9px]">автоматически</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card reveal border border-white/5">
+            <div class="flex items-center justify-between mb-4">
+                <span class="tech-tag" style="color:#34d399; border-color:rgba(52,211,153,.3); background:rgba(52,211,153,.08)">Event</span>
+                <span class="font-mono text-[10px] text-slate-500">2023</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Первый киберспортивный турнир «Все для победы!»</h3>
+            <p class="text-slate-400 text-sm leading-relaxed mb-4">Организация первого в России благотворительного киберспортивного турнира. Полная техническая инфраструктура, онлайн-трансляция, медиаподдержка.</p>
+            <div class="tags-scroll mb-3">
+                <span class="tech-tag">Киберспорт</span><span class="tech-tag">Стриминг</span><span class="tech-tag">Event</span>
+            </div>
+            <div class="case-expand">
+                <div class="pt-3 border-t border-white/5 grid grid-cols-3 gap-2">
+                    <div class="text-center"><div class="text-green-400 font-bold text-sm">№1</div><div class="text-slate-600 text-[9px]">в России</div></div>
+                    <div class="text-center"><div class="text-green-400 font-bold text-sm">🎮</div><div class="text-slate-600 text-[9px]">благотворительный</div></div>
+                    <div class="text-center"><div class="text-green-400 font-bold text-sm">LIVE</div><div class="text-slate-600 text-[9px]">трансляция</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════ STATS ══════════════════ -->
+<section class="py-14 md:py-24 px-5 border-t border-white/4">
+    <div class="max-w-6xl mx-auto">
+        <div class="reveal grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="glass-card rounded-2xl p-6 text-center">
+                <div class="text-4xl md:text-5xl font-bold text-white counter" data-target="16">0</div>
+                <div class="text-primary font-mono text-sm">+</div>
+                <div class="text-[9px] font-bold tracking-widest text-slate-500 uppercase mt-1">Лет опыта</div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 text-center">
+                <div class="text-4xl md:text-5xl font-bold text-primary counter" data-target="50">0</div>
+                <div class="text-primary font-mono text-sm">+</div>
+                <div class="text-[9px] font-bold tracking-widest text-slate-500 uppercase mt-1">Мероприятий</div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 text-center">
+                <div class="text-4xl md:text-5xl font-bold text-white">3M</div>
+                <div class="text-primary font-mono text-sm">+</div>
+                <div class="text-[9px] font-bold tracking-widest text-slate-500 uppercase mt-1">Просмотров</div>
+            </div>
+            <div class="glass-card rounded-2xl p-6 text-center">
+                <div class="text-4xl md:text-5xl font-bold text-white counter" data-target="100">0</div>
+                <div class="text-primary font-mono text-sm">+</div>
+                <div class="text-[9px] font-bold tracking-widest text-slate-500 uppercase mt-1">Подкастов</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════ CONTACT ══════════════════ -->
+<footer id="contact" class="py-20 md:py-32 px-5 border-t border-white/5 bg-[#07080a]">
+    <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col lg:flex-row justify-between items-start gap-12">
+            <div class="reveal lg:w-1/2 text-center lg:text-left">
+                <div class="font-mono text-primary text-[10px] tracking-[0.3em] uppercase mb-4">// 05 КОНТАКТ</div>
+                <h2 class="text-4xl sm:text-6xl font-bold tracking-tighter mb-7 text-white leading-none uppercase">
+                    ЕСТЬ ЗАДАЧА?<br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-slate-700 to-slate-600">ДАВАЙТЕ РЕШИМ.</span>
+                </h2>
+                <p class="text-slate-400 text-sm leading-relaxed mb-8 max-w-md mx-auto lg:mx-0">
+                    AI-решения, автоматизация, event-организация, обучение — пишите, обсудим вашу задачу.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a class="bg-white text-black px-8 py-4 rounded-2xl font-black text-xs tracking-[0.2em] hover:bg-primary hover:text-white transition-all shadow-2xl uppercase inline-flex items-center justify-center gap-2" href="https://t.me/chimitdorzhi" target="_blank" rel="noopener">
+                        TELEGRAM <span class="material-icons text-sm">north_east</span>
+                    </a>
+                    <a class="bg-white/5 border border-white/10 text-white px-8 py-4 rounded-2xl font-black text-xs tracking-[0.2em] hover:bg-white/10 transition-all uppercase inline-flex items-center justify-center gap-2" href="mailto:chimitdorzhi26@gmail.com">
+                        EMAIL <span class="material-icons text-sm">mail</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="reveal lg:w-5/12 glass-card rounded-3xl p-7 font-mono text-[11px] text-slate-500 w-full">
+                <div class="flex items-center gap-2 mb-5">
+                    <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
+                    <span class="ml-2 text-[9px] text-slate-600 tracking-widest">studio.chimitdorzhi ~ terminal</span>
+                </div>
+                <p class="text-primary mb-1">> whoami</p>
+                <p class="mb-3 text-slate-400">Дарижапов Чимитдоржи — AI/ML_Expert</p>
+                <p class="text-primary mb-1">> skills --top</p>
+                <p class="mb-3 text-slate-400">AI, LLM, Events, Teaching, Python</p>
+                <p class="text-primary mb-1">> location --get</p>
+                <p class="mb-3 text-slate-400">Забайкальский край, Россия 📍</p>
+                <p class="text-primary mb-1">> contact</p>
+                <p class="mb-1 text-slate-400">tg: @chimitdorzhi</p>
+                <p class="mb-3 text-slate-400">mail: chimitdorzhi26@gmail.com</p>
+                <p class="text-primary mb-1">> status</p>
+                <p class="text-green-400">ОТКРЫТ К ПРОЕКТАМ <span class="terminal-cursor"></span></p>
+            </div>
+        </div>
+
+        <div class="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 opacity-30">
+            <p class="text-[10px] font-bold tracking-widest uppercase text-center">© 2026 Студия Чимитдоржи. Бескомпромиссная инженерия из Читы.</p>
+            <div class="flex flex-wrap justify-center gap-5 text-[10px] font-bold uppercase">
+                <span>AI & ML</span>
+                <span>Events</span>
+                <span>Обучение</span>
+                
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// ── Курсор ──
+const dot = document.getElementById('cursor-dot');
+const outline = document.getElementById('cursor-outline');
+window.addEventListener('mousemove', e => {
+    gsap.to(dot,     { x: e.clientX, y: e.clientY, duration: 0 });
+    gsap.to(outline, { x: e.clientX, y: e.clientY, duration: 0.12 });
+});
+document.querySelectorAll('a, button, .bento-item, .service-card, .tab-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => outline.classList.add('hovered'));
+    el.addEventListener('mouseleave', () => outline.classList.remove('hovered'));
+});
+
+// ── Прогресс-бар ──
+const bar = document.getElementById('scroll-bar');
+window.addEventListener('scroll', () => {
+    bar.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+});
+
+// ── Кнопка вверх ──
+const backTop = document.getElementById('back-top');
+window.addEventListener('scroll', () => backTop.classList.toggle('visible', window.scrollY > 400));
+backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// ── Reveal анимация ──
+gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.to(el, {
+        scrollTrigger: { trigger: el, start: "top 93%", once: true },
+        opacity: 1, y: 0, duration: 0.9, ease: "expo.out"
+    });
+});
+
+// ── Мобильное меню ──
+const menuBtn = document.getElementById('menu-toggle');
+const mobileNav = document.getElementById('mobile-nav');
+const menuIcon = document.getElementById('menu-icon');
+menuBtn.addEventListener('click', () => {
+    const open = mobileNav.classList.contains('active');
+    if (open) { mobileNav.classList.remove('active'); mobileNav.style.display = 'none'; menuIcon.textContent = 'menu'; }
+    else       { mobileNav.style.display = 'flex'; mobileNav.classList.add('active'); menuIcon.textContent = 'close'; }
+});
+mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileNav.classList.remove('active'); mobileNav.style.display = 'none'; menuIcon.textContent = 'menu';
+}));
+
+// ── Табы деятельности ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const panel = document.getElementById('tab-' + btn.dataset.tab);
+        if (panel) {
+            panel.classList.add('active');
+            // Запустить reveal внутри нового таба
+            panel.querySelectorAll('.reveal').forEach(el => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
             });
         }
-        window.onresize = resize;
-        resize();
+    });
+});
 
-        function animate() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.fillStyle = '#0d59f2';
-            points.forEach(p => {
-                p.x += p.vx; p.y += p.vy;
-                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                ctx.beginPath(); ctx.arc(p.x, p.y, 1.2, 0, Math.PI*2); ctx.fill();
-                points.forEach(p2 => {
-                    let d = Math.hypot(p.x-p2.x, p.y-p2.y);
-                    if(d < 150) {
-                        ctx.strokeStyle = `rgba(13, 89, 242, ${0.1 * (1 - d/150)})`;
-                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
-                    }
-                });
-            });
-            requestAnimationFrame(animate);
+// ── Счётчики ──
+const counterObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            const el = e.target, target = +el.dataset.target, dur = 1800, start = performance.now();
+            const tick = now => {
+                const t = Math.min((now - start) / dur, 1);
+                el.textContent = Math.floor((1 - Math.pow(1 - t, 4)) * target);
+                if (t < 1) requestAnimationFrame(tick); else el.textContent = target;
+            };
+            requestAnimationFrame(tick);
+            counterObs.unobserve(el);
         }
-        animate();
-    </script>
+    });
+}, { threshold: 0.3 });
+document.querySelectorAll('.counter').forEach(c => counterObs.observe(c));
+
+// ── Скилл-бары ──
+const skillObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.querySelectorAll('.skill-fill').forEach(bar => {
+                const target = parseFloat(getComputedStyle(bar).getPropertyValue('--target')) || 1;
+                bar.style.transform = 'scaleX(0)';
+                setTimeout(() => {
+                    bar.style.transition = 'transform 1s cubic-bezier(.23,1,.32,1)';
+                    bar.style.transform = `scaleX(${target})`;
+                }, 100);
+            });
+            skillObs.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.2 });
+document.querySelectorAll('.glass-card').forEach(c => skillObs.observe(c));
+
+// ── Нейронный фон ──
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let pts = [], raf2;
+function resize() {
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    const n = window.innerWidth < 768 ? 35 : 70;
+    pts = Array.from({length:n}, () => ({
+        x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+        vx:(Math.random()-.5)*.35, vy:(Math.random()-.5)*.35
+    }));
+}
+window.addEventListener('resize', resize);
+resize();
+function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle='#0d59f2';
+    pts.forEach(p => {
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>canvas.width) p.vx*=-1;
+        if(p.y<0||p.y>canvas.height) p.vy*=-1;
+        ctx.beginPath(); ctx.arc(p.x,p.y,1.1,0,Math.PI*2); ctx.fill();
+        pts.forEach(q => {
+            const d = Math.hypot(p.x-q.x,p.y-q.y);
+            if(d<130){ ctx.strokeStyle=`rgba(13,89,242,${.07*(1-d/130)})`; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke(); }
+        });
+    });
+    raf2 = requestAnimationFrame(draw);
+}
+draw();
+document.addEventListener('visibilitychange', () => { if(document.hidden) cancelAnimationFrame(raf2); else draw(); });
+
+// ── Typing эффект в герое ──
+const typingEl = document.getElementById('typing-role');
+const roles = ['Предприниматель', 'AI/ML Инженер', 'Преподаватель', 'Event-организатор', 'Продюсер'];
+let roleIdx = 0, charIdx = 0, deleting = false;
+function typeRole() {
+    const current = roles[roleIdx];
+    if (!deleting) {
+        typingEl.textContent = current.slice(0, ++charIdx);
+        if (charIdx === current.length) { deleting = true; setTimeout(typeRole, 2000); return; }
+    } else {
+        typingEl.textContent = current.slice(0, --charIdx);
+        if (charIdx === 0) { deleting = false; roleIdx = (roleIdx + 1) % roles.length; }
+    }
+    setTimeout(typeRole, deleting ? 45 : 85);
+}
+setTimeout(typeRole, 800);
+
+// ── Parallax нейронного фона ──
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    canvas.style.transform = `translateY(${scrollY * 0.3}px)`;
+}, { passive: true });
+
+// ── Sticky contact panel ──
+const stickyPanel = document.getElementById('sticky-contact');
+window.addEventListener('scroll', () => {
+    stickyPanel.classList.toggle('visible', window.scrollY > 300);
+}, { passive: true });
+
+// ── Bottom nav — активная секция ──
+const bnav = document.getElementById('bottom-nav');
+const bnavItems = document.querySelectorAll('.bnav-item');
+const sections = document.querySelectorAll('section[id], footer[id]');
+const secObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            const id = e.target.id;
+            bnavItems.forEach(item => {
+                item.classList.toggle('active', item.dataset.section === id || (id === 'hero' && item.dataset.section === 'hero'));
+            });
+        }
+    });
+}, { threshold: 0.4 });
+sections.forEach(s => secObs.observe(s));
+</script>
 </body>
 </html>
