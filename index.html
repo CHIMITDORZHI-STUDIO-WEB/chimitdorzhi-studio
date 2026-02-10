@@ -23,6 +23,7 @@
                     },
                     fontFamily: {
                         "display": ["Space Grotesk", "sans-serif"],
+                        "sans": ["Space Grotesk", "sans-serif"] 
                     },
                     backgroundImage: {
                         'grid-pattern': "linear-gradient(to right, #1a1d24 1px, transparent 1px), linear-gradient(to bottom, #1a1d24 1px, transparent 1px)",
@@ -35,8 +36,11 @@
         .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
         .glass-card { background: rgba(26, 29, 36, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(13, 89, 242, 0.1); transition: all 0.4s ease; }
         .text-glow { text-shadow: 0 0 20px rgba(13, 89, 242, 0.5); }
-        #mobile-menu.active { display: flex; animation: fadeIn 0.3s ease; }
+        #mobile-menu.active { display: flex; animation: fadeIn 0.3s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .shimmer { position: relative; overflow: hidden; }
+        .shimmer::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; h-full; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); animation: shimmer 3s infinite; }
+        @keyframes shimmer { 100% { left: 200%; } }
     </style>
 </head>
 <body class="bg-background-dark text-slate-200 font-display selection:bg-primary overflow-x-hidden">
@@ -58,15 +62,15 @@
         </button>
 
         <a class="hidden md:flex items-center gap-2 text-xs font-bold text-accent-gold border border-accent-gold/30 px-4 py-2 rounded-full hover:bg-accent-gold/10" href="https://t.me/chimitdorzhi">
-            @chimitdorzhi
+            <span class="material-icons text-sm">telegram</span> @chimitdorzhi
         </a>
     </div>
 
-    <div id="mobile-menu" class="hidden absolute top-20 left-4 right-4 glass-panel rounded-2xl p-6 flex-col gap-4 text-center md:hidden">
-        <a class="text-lg py-2 border-b border-white/5" href="#expertise">ЭКСПЕРТИЗА</a>
-        <a class="text-lg py-2 border-b border-white/5" href="#infrastructure">ИНФРАСТРУКТУРА</a>
-        <a class="text-lg py-2" href="#contact">КОНТАКТЫ</a>
-        <a class="bg-primary py-3 rounded-xl font-bold" href="https://t.me/chimitdorzhi">Telegram</a>
+    <div id="mobile-menu" class="hidden absolute top-20 left-4 right-4 glass-panel rounded-2xl p-6 flex-col gap-4 text-center md:hidden shadow-2xl">
+        <a class="text-lg py-3 border-b border-white/5" href="#expertise">ЭКСПЕРТИЗА</a>
+        <a class="text-lg py-3 border-b border-white/5" href="#infrastructure">ИНФРАСТРУКТУРА</a>
+        <a class="text-lg py-3 border-b border-white/5" href="#contact">КОНТАКТЫ</a>
+        <a class="bg-primary py-4 rounded-xl font-bold text-white mt-2" href="https://t.me/chimitdorzhi">СВЯЗАТЬСЯ В TELEGRAM</a>
     </div>
 </nav>
 
@@ -82,38 +86,163 @@
         </div>
         <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white mb-6 tracking-tighter leading-[0.9]">
             <span class="block text-glow">СТУДИЯ</span>
-            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">ЧИМИТДОРЖИ</span>
+            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-500">ЧИМИТДОРЖИ</span>
         </h1>
-        <p class="text-base md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 font-light px-4">
-            <span class="text-primary font-medium">Инженерия будущего.</span> 15+ лет опыта в IT архитектуре и цифровой трансформации.
+        <p class="text-base md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 font-light px-4 leading-relaxed">
+            <span class="text-primary font-medium">Инженерия будущего.</span> 15+ лет опыта в IT архитектуре, AI/ML решениях и цифровой трансформации.
         </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 px-6">
-            <a class="w-full sm:w-auto px-8 py-4 bg-primary text-white font-bold rounded-xl shadow-lg" href="#contact">ОБСУДИТЬ ПРОЕКТ</a>
-            <a class="w-full sm:w-auto px-8 py-4 border border-slate-700 text-slate-300 rounded-xl hover:bg-white/5" href="#expertise">ТЕХНОЛОГИИ</a>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 px-6 max-w-md mx-auto sm:max-w-none">
+            <a class="w-full sm:w-auto px-10 py-5 bg-primary text-white font-bold rounded-xl shadow-[0_0_30px_rgba(13,89,242,0.4)] hover:scale-105 transition-transform" href="#contact">ОБСУДИТЬ ПРОЕКТ</a>
+            <a class="w-full sm:w-auto px-10 py-5 border border-slate-700 text-slate-300 rounded-xl hover:border-primary transition-colors bg-background-dark/50" href="#expertise">ТЕХНОЛОГИИ</a>
         </div>
     </div>
 </header>
 
 <section class="py-20 md:py-32 bg-background-dark px-6" id="expertise">
-    <div class="container mx-auto">
-        <h2 class="text-3xl md:text-5xl font-bold text-white mb-12 text-center md:text-left">Направления <span class="text-primary">Экспертизы</span></h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <div class="glass-card rounded-2xl p-6 md:p-8">
-                <span class="material-icons text-primary text-4xl mb-4">smart_toy</span>
-                <h3 class="text-xl md:text-2xl font-bold text-white mb-2">AI/ML Агенты</h3>
-                <p class="text-slate-400 text-sm">Создание интеллектуальных систем и RAG архитектур для бизнеса.</p>
+    <div class="container mx-auto max-w-6xl">
+        <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 gap-6 text-center md:text-left">
+            <div>
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4">Направления <span class="text-primary">Экспертизы</span></h2>
+                <p class="text-slate-400">Полный цикл разработки: от AI-агентов до VDI инфраструктур.</p>
             </div>
-            <div class="glass-card rounded-2xl p-6 md:p-8">
-                <span class="material-icons text-primary text-4xl mb-4">dns</span>
-                <h3 class="text-xl md:text-2xl font-bold text-white mb-2">VDI & Cloud</h3>
-                <p class="text-slate-400 text-sm">Проектирование отказоустойчивых облачных систем и виртуальных рабочих столов.</p>
+            <div class="hidden md:block h-px bg-slate-800 flex-grow max-w-xs"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div class="glass-card rounded-2xl p-6 md:p-8 hover:border-primary transition-all">
+                <span class="material-icons text-primary text-4xl mb-6">smart_toy</span>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Разработка AI/ML агентов</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Создание интеллектуальных систем, LLM интеграции и RAG архитектур для автоматизации процессов.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-6 md:p-8 hover:border-primary transition-all">
+                <span class="material-icons text-primary text-4xl mb-6">dns</span>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-3">VDI и Облака</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Проектирование отказоустойчивых систем виртуальных рабочих столов и облачная миграция.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-6 md:p-8 hover:border-primary transition-all">
+                <span class="material-icons text-primary text-4xl mb-6">developer_mode</span>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Веб и Mobile</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Высоконагруженные сервисы и мобильные приложения с упором на производительность.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-6 md:p-8 hover:border-primary transition-all">
+                <span class="material-icons text-primary text-4xl mb-6">hub</span>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-3">Ethno-Digital проекты</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Цифровое сопровождение культурных инициатив, включая мюзикл «NAYAN NAVAA».</p>
             </div>
         </div>
     </div>
 </section>
 
-<footer class="bg-background-dark py-12 px-6 border-t border-white/5 text-center md:text-left">
-    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-        <div>
-            <p class="text-white font-bold text-xl mb-2">CHIMITDORZHI STUDIO</p>
-            <p class="text-slate-500
+<section class="py-20 md:py-32 bg-[#0c0e12] px-6" id="infrastructure">
+    <div class="container mx-auto max-w-6xl">
+        <div class="flex flex-col lg:flex-row items-center gap-12 md:gap-20">
+            <div class="lg:w-1/2 text-center lg:text-left">
+                <span class="text-accent-gold font-bold tracking-[0.3em] uppercase mb-4 block text-sm">Enterprise Level</span>
+                <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">Масштабируемая <span class="text-primary">Инфраструктура</span></h2>
+                <p class="text-slate-400 text-lg mb-8">Проектируем системы, которые не падают под нагрузкой. Используем Infrastructure as Code (IaC) и CI/CD автоматизацию.</p>
+                <div class="space-y-4 inline-block text-left">
+                    <div class="flex items-center gap-3 text-white"><span class="material-icons text-primary text-sm">check_circle</span> Микросервисы (K8s, Docker)</div>
+                    <div class="flex items-center gap-3 text-white"><span class="material-icons text-primary text-sm">check_circle</span> Мониторинг 24/7 (Prometheus, Grafana)</div>
+                    <div class="flex items-center gap-3 text-white"><span class="material-icons text-primary text-sm">check_circle</span> Кибербезопасность и защита данных</div>
+                </div>
+            </div>
+            <div class="lg:w-1/2 w-full">
+                <div class="glass-card rounded-3xl p-4 md:p-8 relative">
+                    <div class="aspect-video bg-background-dark rounded-xl flex items-center justify-center border border-white/5">
+                        <span class="material-icons text-7xl md:text-9xl text-primary/20 animate-pulse">lan</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 bg-background-dark border-y border-white/5">
+    <div class="container mx-auto px-6 max-w-6xl">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center md:text-left">
+                <p class="text-4xl md:text-5xl font-bold text-white">15+</p>
+                <p class="text-xs text-slate-500 uppercase tracking-widest mt-2">Лет опыта</p>
+            </div>
+            <div class="text-center md:text-left">
+                <p class="text-4xl md:text-5xl font-bold text-white">50+</p>
+                <p class="text-xs text-slate-500 uppercase tracking-widest mt-2">Проектов</p>
+            </div>
+            <div class="text-center md:text-left">
+                <p class="text-4xl md:text-5xl font-bold text-white">AI</p>
+                <p class="text-xs text-slate-500 uppercase tracking-widest mt-2">Специализация</p>
+            </div>
+            <div class="text-center md:text-left">
+                <p class="text-4xl md:text-5xl font-bold text-white">24/7</p>
+                <p class="text-xs text-slate-500 uppercase tracking-widest mt-2">Поддержка</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-background-dark pt-20 pb-10 px-6" id="contact">
+    <div class="container mx-auto max-w-6xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
+            <div class="text-center lg:text-left">
+                <h2 class="text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">Готовы обсудить <br/><span class="text-slate-600">вашу архитектуру?</span></h2>
+                <a class="inline-flex items-center gap-3 bg-primary hover:bg-primary-light text-white font-bold px-8 py-5 rounded-2xl transition-all shadow-xl shimmer" href="https://t.me/chimitdorzhi">
+                    СВЯЗАТЬСЯ В TELEGRAM <span class="material-icons">north_east</span>
+                </a>
+            </div>
+            <div class="flex flex-col justify-center gap-8 text-center lg:text-left">
+                <div>
+                    <h4 class="text-slate-500 uppercase text-xs tracking-widest mb-4">Локация</h4>
+                    <p class="text-xl text-white">Чита, Забайкальский край</p>
+                </div>
+                <div>
+                    <h4 class="text-slate-500 uppercase text-xs tracking-widest mb-4">Email</h4>
+                    <p class="text-xl text-white">contact@chimitdorzhi.studio</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-t border-white/5 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-slate-600 text-sm">© 2026 CHIMITDORZHI STUDIO. Все права защищены.</p>
+            <div class="text-slate-800 font-bold text-xl tracking-[0.5em] opacity-20 hidden md:block uppercase">CHIMITDORZHI</div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const menuBtn = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const menuIcon = menuBtn.querySelector('.material-icons');
+
+    menuBtn.addEventListener('click', () => {
+        const isOpen = menu.classList.contains('active');
+        if (isOpen) {
+            menu.classList.remove('active');
+            setTimeout(() => menu.classList.add('hidden'), 300);
+            menuIcon.textContent = 'menu';
+        } else {
+            menu.classList.remove('hidden');
+            setTimeout(() => menu.classList.add('active'), 10);
+            menuIcon.textContent = 'close';
+        }
+    });
+
+    // Закрытие при клике на пункт меню
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.remove('active');
+            setTimeout(() => menu.classList.add('hidden'), 300);
+            menuIcon.textContent = 'menu';
+        });
+    });
+
+    // Плавный скролл
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+</script>
+
+</body>
+</html>
