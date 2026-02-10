@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html class="dark" lang="ru"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Студия Чимитдоржи: Полный Цикл IT-Разработки</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="dark" lang="ru">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Студия Чимитдоржи: Полный Цикл IT-Разработки</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -18,13 +18,11 @@
                         "primary": "#0d59f2",
                         "primary-light": "#4b85f6",
                         "accent-gold": "#D4AF37",
-                        "background-light": "#f5f6f8",
                         "background-dark": "#0f1115",
                         "surface-dark": "#1a1d24",
                     },
                     fontFamily: {
                         "display": ["Space Grotesk", "sans-serif"],
-                        "sans": ["Space Grotesk", "sans-serif"] 
                     },
                     backgroundImage: {
                         'grid-pattern': "linear-gradient(to right, #1a1d24 1px, transparent 1px), linear-gradient(to bottom, #1a1d24 1px, transparent 1px)",
@@ -33,321 +31,89 @@
             },
         }
     </script>
-<style>.glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .glass-card {
-            background: rgba(26, 29, 36, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(13, 89, 242, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .glass-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            border-color: rgba(13, 89, 242, 0.5);
-            box-shadow: 0 20px 40px -15px rgba(13, 89, 242, 0.2);
-        }
-        .text-glow {
-            text-shadow: 0 0 20px rgba(13, 89, 242, 0.5);
-        }
-        .gold-glow {
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-        }.ambient-light {
-            background: radial-gradient(circle at 50% 50%, rgba(13, 89, 242, 0.15) 0%, rgba(15, 17, 21, 0) 70%);
-        }
-        .ornament-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5L20.5 20L20 19.5L19.5 20L20 20.5z' fill='%23D4AF37' fill-opacity='0.2' fill-rule='evenodd'/%3E%3C/svg%3E");
-        }
+    <style>
+        .glass-panel { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .glass-card { background: rgba(26, 29, 36, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(13, 89, 242, 0.1); transition: all 0.4s ease; }
+        .text-glow { text-shadow: 0 0 20px rgba(13, 89, 242, 0.5); }
+        #mobile-menu.active { display: flex; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-200 font-display selection:bg-primary selection:text-white overflow-x-hidden">
-<nav class="fixed top-0 w-full z-50 transition-all duration-300 py-6">
-<div class="container mx-auto px-6">
-<div class="glass-panel rounded-full px-8 py-4 flex justify-between items-center max-w-5xl mx-auto shadow-2xl shadow-black/50">
-<a class="text-xl font-bold tracking-widest text-white flex items-center gap-2" href="#">
-<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                    CHIMITDORZHI
-                </a>
-<div class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
-<a class="text-slate-400 hover:text-primary transition-colors" href="#expertise">ЭКСПЕРТИЗА</a>
-<a class="text-slate-400 hover:text-primary transition-colors" href="#infrastructure">ИНФРАСТРУКТУРА</a>
-<a class="text-slate-400 hover:text-primary transition-colors" href="#contact">КОНТАКТЫ</a>
-</div>
-<a class="hidden md:flex items-center gap-2 text-xs font-bold text-accent-gold border border-accent-gold/30 px-4 py-2 rounded-full hover:bg-accent-gold/10 transition-colors" href="https://t.me/chimitdorzhi">
-<span class="material-icons text-sm">telegram</span>
-                    @chimitdorzhi
-                </a>
-</div>
-</div>
+<body class="bg-background-dark text-slate-200 font-display selection:bg-primary overflow-x-hidden">
+
+<nav class="fixed top-0 w-full z-50 py-4 md:py-6 px-4">
+    <div class="glass-panel rounded-full px-6 md:px-8 py-3 md:py-4 flex justify-between items-center max-w-5xl mx-auto shadow-2xl">
+        <a class="text-lg md:text-xl font-bold tracking-widest text-white flex items-center gap-2" href="#">
+            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> CHIMITDORZHI
+        </a>
+        
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+            <a class="text-slate-400 hover:text-primary transition-colors" href="#expertise">ЭКСПЕРТИЗА</a>
+            <a class="text-slate-400 hover:text-primary transition-colors" href="#infrastructure">ИНФРАСТРУКТУРА</a>
+            <a class="text-slate-400 hover:text-primary transition-colors" href="#contact">КОНТАКТЫ</a>
+        </div>
+
+        <button id="menu-toggle" class="md:hidden text-white p-2">
+            <span class="material-icons">menu</span>
+        </button>
+
+        <a class="hidden md:flex items-center gap-2 text-xs font-bold text-accent-gold border border-accent-gold/30 px-4 py-2 rounded-full hover:bg-accent-gold/10" href="https://t.me/chimitdorzhi">
+            @chimitdorzhi
+        </a>
+    </div>
+
+    <div id="mobile-menu" class="hidden absolute top-20 left-4 right-4 glass-panel rounded-2xl p-6 flex-col gap-4 text-center md:hidden">
+        <a class="text-lg py-2 border-b border-white/5" href="#expertise">ЭКСПЕРТИЗА</a>
+        <a class="text-lg py-2 border-b border-white/5" href="#infrastructure">ИНФРАСТРУКТУРА</a>
+        <a class="text-lg py-2" href="#contact">КОНТАКТЫ</a>
+        <a class="bg-primary py-3 rounded-xl font-bold" href="https://t.me/chimitdorzhi">Telegram</a>
+    </div>
 </nav>
-<header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-<div class="absolute inset-0 bg-background-dark z-0">
-<div class="absolute inset-0 bg-[size:40px_40px] bg-grid-pattern opacity-10"></div>
-<div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] mix-blend-screen animate-pulse"></div>
-<div class="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[150px] mix-blend-screen"></div>
-</div>
-<div class="container mx-auto px-6 relative z-10 text-center">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary-light text-xs tracking-[0.2em] mb-8 uppercase backdrop-blur-sm">
-<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                System Online
-            </div>
-<h1 class="text-5xl md:text-7xl lg:text-9xl font-bold text-white mb-6 tracking-tight leading-none">
-<span class="block text-glow">СТУДИЯ</span>
-<span class="block text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-500">ЧИМИТДОРЖИ</span>
-</h1>
-<p class="text-lg md:text-2xl text-slate-400 max-w-3xl mx-auto mb-12 font-light leading-relaxed">
-<span class="text-primary font-medium">Инженерия будущего.</span>
-<span class="text-accent-gold font-medium">Масштабируемые решения.</span>
-<br class="hidden md:block"/>
-                15+ лет опыта в IT архитектуре и цифровой трансформации.
-            </p>
-<div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-<a class="group relative px-8 py-4 bg-primary text-white font-bold rounded-lg overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(13,89,242,0.6)]" href="#contact">
-<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
-<span class="relative flex items-center gap-3">
-                        ОБСУДИТЬ АРХИТЕКТУРУ
-                        <span class="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
-</span>
-</a>
-<a class="px-8 py-4 border border-slate-700 text-slate-300 rounded-lg hover:border-primary hover:text-white transition-all bg-background-dark/50 backdrop-blur-sm" href="#expertise">
-                    ИЗУЧИТЬ ТЕХНОЛОГИИ
-                </a>
-</div>
-</div>
-<div class="absolute bottom-0 w-full h-24 bg-gradient-to-t from-background-dark to-transparent z-20"></div>
+
+<header class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden px-4">
+    <div class="absolute inset-0 bg-background-dark -z-10">
+        <div class="absolute inset-0 bg-[size:40px_40px] bg-grid-pattern opacity-10"></div>
+        <div class="absolute top-10 left-1/4 w-72 md:w-[500px] h-72 md:h-[500px] bg-primary/20 rounded-full blur-[80px] md:blur-[120px] animate-pulse"></div>
+    </div>
+
+    <div class="container mx-auto relative z-10 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary-light text-[10px] md:text-xs tracking-widest mb-6 uppercase">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> System Online
+        </div>
+        <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white mb-6 tracking-tighter leading-[0.9]">
+            <span class="block text-glow">СТУДИЯ</span>
+            <span class="block text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500">ЧИМИТДОРЖИ</span>
+        </h1>
+        <p class="text-base md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 font-light px-4">
+            <span class="text-primary font-medium">Инженерия будущего.</span> 15+ лет опыта в IT архитектуре и цифровой трансформации.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 px-6">
+            <a class="w-full sm:w-auto px-8 py-4 bg-primary text-white font-bold rounded-xl shadow-lg" href="#contact">ОБСУДИТЬ ПРОЕКТ</a>
+            <a class="w-full sm:w-auto px-8 py-4 border border-slate-700 text-slate-300 rounded-xl hover:bg-white/5" href="#expertise">ТЕХНОЛОГИИ</a>
+        </div>
+    </div>
 </header>
-<section class="py-32 relative bg-background-dark" id="expertise">
-<div class="container mx-auto px-6">
-<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-<div>
-<h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Направления <span class="text-primary">Экспертизы</span></h2>
-<p class="text-slate-400 max-w-md">Полный цикл IT-разработки: от архитектуры до внедрения.</p>
-</div>
-<div class="h-px bg-slate-800 flex-grow md:max-w-xs"></div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="glass-card rounded-2xl p-8 group cursor-pointer relative overflow-hidden">
-<div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-icons text-9xl text-primary">psychology</span>
-</div>
-<div class="relative z-10 h-full flex flex-col justify-between">
-<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-8 border border-primary/20 group-hover:border-primary group-hover:shadow-[0_0_15px_rgba(13,89,242,0.4)] transition-all">
-<span class="material-icons text-primary text-2xl">smart_toy</span>
-</div>
-<div>
-<h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Разработка AI/ML агентов и ботов</h3>
-<p class="text-slate-400 text-sm leading-relaxed mb-6">Создание интеллектуальных систем, LLM интеграции, голосовых ассистентов и RAG архитектур для автоматизации бизнес-процессов.</p>
-<span class="text-xs font-bold text-primary-light tracking-widest uppercase flex items-center gap-2">
-                                Подробнее <span class="w-4 h-px bg-primary-light group-hover:w-8 transition-all"></span>
-</span>
-</div>
-</div>
-</div>
-<div class="glass-card rounded-2xl p-8 group cursor-pointer relative overflow-hidden">
-<div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-icons text-9xl text-primary">devices</span>
-</div>
-<div class="relative z-10 h-full flex flex-col justify-between">
-<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-8 border border-primary/20 group-hover:border-primary group-hover:shadow-[0_0_15px_rgba(13,89,242,0.4)] transition-all">
-<span class="material-icons text-primary text-2xl">developer_mode</span>
-</div>
-<div>
-<h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Веб и мобильные приложения</h3>
-<p class="text-slate-400 text-sm leading-relaxed mb-6">Проектирование и разработка высоконагруженных веб-сервисов и нативных мобильных приложений (iOS/Android) с фокусом на UX/UI.</p>
-<span class="text-xs font-bold text-primary-light tracking-widest uppercase flex items-center gap-2">
-                                Подробнее <span class="w-4 h-px bg-primary-light group-hover:w-8 transition-all"></span>
-</span>
-</div>
-</div>
-</div>
-<div class="glass-card rounded-2xl p-8 group cursor-pointer relative overflow-hidden">
-<div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-icons text-9xl text-primary">business</span>
-</div>
-<div class="relative z-10 h-full flex flex-col justify-between">
-<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-8 border border-primary/20 group-hover:border-primary group-hover:shadow-[0_0_15px_rgba(13,89,242,0.4)] transition-all">
-<span class="material-icons text-primary text-2xl">language</span>
-</div>
-<div>
-<h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">Корпоративные сайты и порталы</h3>
-<p class="text-slate-400 text-sm leading-relaxed mb-6">Разработка масштабируемых корпоративных платформ, интранет-порталов и B2B/B2C решений с интеграцией внутренних систем.</p>
-<span class="text-xs font-bold text-primary-light tracking-widest uppercase flex items-center gap-2">
-                                Подробнее <span class="w-4 h-px bg-primary-light group-hover:w-8 transition-all"></span>
-</span>
-</div>
-</div>
-</div>
-<div class="glass-card rounded-2xl p-8 group cursor-pointer relative overflow-hidden">
-<div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-icons text-9xl text-primary">cloud_queue</span>
-</div>
-<div class="relative z-10 h-full flex flex-col justify-between">
-<div class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-8 border border-primary/20 group-hover:border-primary group-hover:shadow-[0_0_15px_rgba(13,89,242,0.4)] transition-all">
-<span class="material-icons text-primary text-2xl">dns</span>
-</div>
-<div>
-<h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">VDI и Облачная инфраструктура</h3>
-<p class="text-slate-400 text-sm leading-relaxed mb-6">Архитектура виртуальных рабочих столов (VDI), миграция в облака, настройка CI/CD и обеспечение высокой доступности сервисов.</p>
-<span class="text-xs font-bold text-primary-light tracking-widest uppercase flex items-center gap-2">
-                                Подробнее <span class="w-4 h-px bg-primary-light group-hover:w-8 transition-all"></span>
-</span>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+<section class="py-20 md:py-32 bg-background-dark px-6" id="expertise">
+    <div class="container mx-auto">
+        <h2 class="text-3xl md:text-5xl font-bold text-white mb-12 text-center md:text-left">Направления <span class="text-primary">Экспертизы</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div class="glass-card rounded-2xl p-6 md:p-8">
+                <span class="material-icons text-primary text-4xl mb-4">smart_toy</span>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-2">AI/ML Агенты</h3>
+                <p class="text-slate-400 text-sm">Создание интеллектуальных систем и RAG архитектур для бизнеса.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-6 md:p-8">
+                <span class="material-icons text-primary text-4xl mb-4">dns</span>
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-2">VDI & Cloud</h3>
+                <p class="text-slate-400 text-sm">Проектирование отказоустойчивых облачных систем и виртуальных рабочих столов.</p>
+            </div>
+        </div>
+    </div>
 </section>
-<section class="relative py-32 overflow-hidden bg-background-dark" id="infrastructure">
-<div class="absolute inset-0 z-0">
-<div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-<div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-primary/10 to-transparent"></div>
-</div>
-<div class="container mx-auto px-6 relative z-10">
-<div class="flex flex-col lg:flex-row items-center gap-16">
-<div class="lg:w-1/2">
-<span class="text-accent-gold font-bold tracking-[0.3em] uppercase mb-4 block gold-glow">High-Load Systems</span>
-<h2 class="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
-                        Масштабируемая <br/>
-<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-light">IT Инфраструктура</span>
-</h2>
-<p class="text-slate-400 text-lg mb-8 leading-relaxed">
-                        Мы проектируем отказоустойчивые системы, способные выдерживать экстремальные нагрузки. Наш подход базируется на принципах Infrastructure as Code и полной автоматизации процессов развертывания.
-                    </p>
-<ul class="space-y-6 mb-10">
-<li class="flex items-start gap-4">
-<span class="w-8 h-8 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary mt-1">
-<span class="material-icons text-sm">check</span>
-</span>
-<div>
-<h4 class="text-white font-bold text-lg">Микросервисная архитектура</h4>
-<p class="text-slate-500 text-sm">Kubernetes, Docker, Service Mesh</p>
-</div>
-</li>
-<li class="flex items-start gap-4">
-<span class="w-8 h-8 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary mt-1">
-<span class="material-icons text-sm">check</span>
-</span>
-<div>
-<h4 class="text-white font-bold text-lg">CI/CD Пайплайны</h4>
-<p class="text-slate-500 text-sm">Автоматизация сборки и доставки кода</p>
-</div>
-</li>
-<li class="flex items-start gap-4">
-<span class="w-8 h-8 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary mt-1">
-<span class="material-icons text-sm">check</span>
-</span>
-<div>
-<h4 class="text-white font-bold text-lg">Мониторинг 24/7</h4>
-<p class="text-slate-500 text-sm">Prometheus, Grafana, ELK Stack</p>
-</div>
-</li>
-</ul>
-<a class="inline-flex items-center gap-3 text-accent-gold font-bold uppercase tracking-widest hover:text-white transition-colors group" href="#contact">
-                        Заказать аудит
-                        <span class="material-icons group-hover:translate-x-2 transition-transform">arrow_right_alt</span>
-</a>
-</div>
-<div class="lg:w-1/2 relative">
-<div class="glass-panel rounded-2xl p-1 border-white/10 relative">
-<div class="absolute -inset-1 bg-gradient-to-r from-primary to-accent-gold opacity-30 blur-lg -z-10 rounded-2xl"></div>
-<div class="bg-background-dark rounded-xl overflow-hidden relative aspect-video flex items-center justify-center">
-<div class="grid grid-cols-4 gap-2 w-full h-full p-4 opacity-40">
-<div class="bg-primary/20 rounded h-full animate-pulse"></div>
-<div class="bg-slate-800 rounded h-3/4 self-end"></div>
-<div class="bg-slate-800 rounded h-1/2 self-end"></div>
-<div class="bg-primary/20 rounded h-2/3 self-end animate-pulse delay-75"></div>
-<div class="bg-slate-800 rounded h-full"></div>
-<div class="bg-primary/20 rounded h-5/6 self-end animate-pulse delay-150"></div>
-<div class="bg-slate-800 rounded h-1/2 self-end"></div>
-<div class="bg-slate-800 rounded h-full"></div>
-</div>
-<div class="absolute inset-0 flex items-center justify-center">
-<div class="text-center">
-<span class="material-icons text-6xl text-white opacity-80">hub</span>
-<div class="text-xs text-primary font-mono mt-2">NETWORK TOPOLOGY</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-20 border-y border-white/5 bg-[#12151c]">
-<div class="container mx-auto px-6">
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-center md:text-left">
-<div class="flex flex-col md:border-r border-white/5 last:border-0 p-4">
-<span class="text-5xl lg:text-6xl font-bold text-white mb-2 font-display">15<span class="text-primary">+</span></span>
-<span class="text-sm text-slate-400 uppercase tracking-wider">Лет опыта в IT</span>
-</div>
-<div class="flex flex-col md:border-r border-white/5 last:border-0 p-4">
-<span class="text-5xl lg:text-6xl font-bold text-white mb-2 font-display">50<span class="text-accent-gold">+</span></span>
-<span class="text-sm text-slate-400 uppercase tracking-wider">Enterprise Проектов</span>
-</div>
-<div class="flex flex-col md:border-r border-white/5 last:border-0 p-4">
-<span class="text-5xl lg:text-6xl font-bold text-white mb-2 font-display">99.9<span class="text-primary">%</span></span>
-<span class="text-sm text-slate-400 uppercase tracking-wider">SLA Uptime</span>
-</div>
-<div class="flex flex-col p-4">
-<span class="text-5xl lg:text-6xl font-bold text-white mb-2 font-display">24<span class="text-slate-600">/</span>7</span>
-<span class="text-sm text-slate-400 uppercase tracking-wider">DevOps Поддержка</span>
-</div>
-</div>
-</div>
-</section>
-<footer class="bg-background-dark pt-32 pb-12 relative overflow-hidden" id="contact">
-<div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
-<div class="container mx-auto px-6 relative z-10">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
-<div>
-<h2 class="text-4xl md:text-6xl font-bold text-white mb-8 leading-tight">
-                        Готовы начать <br/>
-<span class="text-slate-600">цифровую трансформацию?</span>
-</h2>
-<a class="inline-flex items-center gap-4 bg-primary hover:bg-primary-light text-white text-lg font-bold px-10 py-6 rounded-xl transition-all shadow-[0_10px_30px_-10px_rgba(13,89,242,0.5)] hover:shadow-[0_20px_40px_-10px_rgba(13,89,242,0.6)] group" href="https://t.me/chimitdorzhi">
-                        Давайте создадим проект
-                        <span class="material-icons group-hover:rotate-45 transition-transform">north_east</span>
-</a>
-</div>
-<div class="lg:pl-16 flex flex-col justify-end">
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
-<div>
-<h4 class="text-slate-500 uppercase text-xs tracking-widest mb-4 font-bold">Контакты</h4>
-<ul class="space-y-3">
-<li>
-<a class="text-white hover:text-accent-gold text-lg flex items-center gap-2 transition-colors" href="https://t.me/chimitdorzhi">
-<span class="material-icons text-sm">send</span> Telegram
-                                    </a>
-</li>
-<li>
-<a class="text-slate-300 hover:text-white transition-colors" href="mailto:contact@chimitdorzhi.com">contact@chimitdorzhi.com</a>
-</li>
-</ul>
-</div>
-<div>
-<h4 class="text-slate-500 uppercase text-xs tracking-widest mb-4 font-bold">Локация</h4>
-<div class="flex items-start gap-3">
-<img class="w-16 h-16 rounded-lg object-cover grayscale opacity-60" data-alt="Dark map style graphic showing location pin" data-location="Chita, Russia" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDefNs_CJJRGdv-7ATrO4sb1GEeKmmN006rrZgPxdo0TDcwC-Y24tHRB286fk6XjfugnVXaaPXXYRYEXKXlT_QXN0txoZZUn67ySvH19SgKw_5L4h235HqQFbfP8Z4LDtm76e81jNoeVVBpkDm_pME_90vHTP8e6AtWiiLbTkOFiZaIxyRDBmm6WeRgCg6bkIYbDab4pDFrX2xTH8ahBo5AUmFloxP4oJziWJAvXVE6VxACyNUQyHsenJXeEgSR7-rcLfjyrgvXAw"/>
-<div>
-<p class="text-white font-medium">Чита,</p>
-<p class="text-slate-400">Забайкальский край</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="text-slate-600 text-sm">© 2023 Студия Чимитдоржи. Все права защищены.</p>
-<div class="flex gap-6 text-sm text-slate-500">
-<a class="hover:text-primary transition-colors" href="#">Политика конфиденциальности</a>
-<a class="hover:text-primary transition-colors" href="#">Условия использования</a>
-</div>
-<div class="text-slate-700 font-display font-bold text-xl tracking-widest opacity-30 select-none">CHIMITDORZHI</div>
-</div>
-</div>
-</footer>
-</body></html>
+
+<footer class="bg-background-dark py-12 px-6 border-t border-white/5 text-center md:text-left">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+        <div>
+            <p class="text-white font-bold text-xl mb-2">CHIMITDORZHI STUDIO</p>
+            <p class="text-slate-500
