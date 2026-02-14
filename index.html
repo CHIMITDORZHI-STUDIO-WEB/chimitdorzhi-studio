@@ -1539,6 +1539,15 @@
     </div>
 </footer>
 
+<!-- Cookie Banner -->
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:rgba(15,17,21,0.95);border-top:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(20px);padding:16px 20px;font-family:'Syne',sans-serif;">
+    <div style="max-width:1152px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+        <p style="color:#94a3b8;font-size:12px;margin:0;line-height:1.6;flex:1;min-width:240px;">Мы используем файлы cookie, чтобы сайт работал лучше. Оставаясь на сайте, вы соглашаетесь с <a href="privacy-policy.html" style="color:#0d59f2;text-decoration:none;">Политикой конфиденциальности</a>.</p>
+        <button onclick="document.getElementById('cookie-banner').style.display='none';localStorage.setItem('cookieAccepted','1');" style="background:#0d59f2;color:#fff;border:none;padding:10px 28px;border-radius:12px;font-size:11px;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;font-family:'Syne',sans-serif;white-space:nowrap;transition:background 0.2s;" onmouseover="this.style.background='#4b85f6'" onmouseout="this.style.background='#0d59f2'">Принять</button>
+    </div>
+</div>
+<script>if(!localStorage.getItem('cookieAccepted')){document.getElementById('cookie-banner').style.display='block';}</script>
+
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 gsap.registerPlugin(ScrollTrigger);
 
