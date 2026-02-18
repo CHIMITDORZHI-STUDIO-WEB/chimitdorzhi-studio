@@ -148,6 +148,7 @@ ru: {
     footer_teaching:'Обучение', footer_privacy:'Политика конфиденциальности',
     cookie_text:'Мы используем файлы cookie, чтобы сайт работал лучше. Оставаясь на сайте, вы соглашаетесь с <a href="privacy-policy.html" style="color:#0d59f2;text-decoration:none;">Политикой конфиденциальности</a>.',
     cookie_accept:'Принять',
+    hero_pdf:'РЕЗЮМЕ PDF',
     typing_roles:['Предприниматель','AI/ML Инженер','Преподаватель','Event-организатор','Продюсер'],
     intro_lines:['>_ ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ...','>_ ЗАГРУЗКА ПРОФИЛЯ..........','>_ ИДЕНТИФИКАЦИЯ: ДАРИЖАПОВ ЧИМИТДОРЖИ','>_ РОЛЬ: AI / ЭКСПЕРТ / ПРЕДПРИНИМАТЕЛЬ','>_ СТАТУС: АКТИВЕН  ✓'],
 
@@ -312,6 +313,7 @@ en: {
     footer_teaching:'Education', footer_privacy:'Privacy Policy',
     cookie_text:'We use cookies to improve our website. By staying, you agree to our <a href="privacy-policy.html" style="color:#0d59f2;text-decoration:none;">Privacy Policy</a>.',
     cookie_accept:'Accept',
+    hero_pdf:'DOWNLOAD CV',
     typing_roles:['Entrepreneur','AI/ML Engineer','Educator','Event Organizer','Producer'],
     intro_lines:['>_ SYSTEM INITIALIZATION...','>_ LOADING PROFILE..........','>_ IDENTIFICATION: DARIZHAPOV CHIMITDORZHI','>_ ROLE: AI / EXPERT / ENTREPRENEUR','>_ STATUS: ACTIVE  ✓'],
 
@@ -476,6 +478,7 @@ zh: {
     footer_teaching:'教育', footer_privacy:'隐私政策',
     cookie_text:'我们使用cookie来改善网站体验。继续浏览即表示您同意我们的<a href="privacy-policy.html" style="color:#0d59f2;text-decoration:none;">隐私政策</a>。',
     cookie_accept:'接受',
+    hero_pdf:'下载简历 PDF',
     typing_roles:['企业家','AI/ML工程师','教育者','活动组织者','制作人'],
     intro_lines:['>_ 系统初始化...','>_ 加载个人资料..........','>_ 身份识别：达里扎波夫·奇米特多尔日','>_ 角色：AI / 专家 / 企业家','>_ 状态：在线  ✓'],
 
