@@ -2253,7 +2253,7 @@ sections.forEach(s => secObs.observe(s));
 <!-- ══════════════════════════════════════════════════
      PDF RESUME — hidden off-screen element
      ══════════════════════════════════════════════════ -->
-<div id="resume-pdf" style="display:none;position:fixed;left:-9999px;top:0;width:794px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#1e293b;font-size:13px;line-height:1.4;">
+<div id="resume-pdf" style="display:none;width:794px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#1e293b;font-size:13px;line-height:1.4;">
 
   <!-- HEADER -->
   <div style="background:linear-gradient(135deg,#0d59f2 0%,#1d4ed8 100%);padding:30px 32px 24px;color:#fff;">
@@ -2453,7 +2453,6 @@ sections.forEach(s => secObs.observe(s));
 <script>
 function downloadResume() {
     if (typeof html2pdf === 'undefined') {
-        // Fallback: load script and retry
         const s = document.createElement('script');
         s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
         s.onload = () => downloadResume();
@@ -2465,23 +2464,33 @@ function downloadResume() {
     btn.innerHTML = '<span class="material-icons" style="font-size:15px;vertical-align:middle;animation:spin 1s linear infinite">hourglass_empty</span>&nbsp;Генерирую...';
     btn.disabled = true;
 
-    const el = document.getElementById('resume-pdf');
-    el.style.display = 'block';
+    // Clone resume element so html2canvas captures it at full opacity
+    const src = document.getElementById('resume-pdf');
+    const el = src.cloneNode(true);
+    el.id = 'resume-pdf-render';
+    el.style.cssText = 'position:fixed;left:0;top:0;width:794px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#1e293b;font-size:13px;line-height:1.4;z-index:-1;pointer-events:none;';
+    document.body.appendChild(el);
 
-    html2pdf().set({
-        margin: 0,
-        filename: 'Дарижапов_Чимитдоржи_Резюме_2026.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' },
-        jsPDF: { unit: 'px', format: [794, 1123], orientation: 'portrait', hotfixes: ['px_scaling'] }
-    }).from(el).save().then(() => {
-        el.style.display = 'none';
-        btn.innerHTML = '<span class="material-icons" style="font-size:15px">check_circle</span>&nbsp;Готово!';
-        setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 2500);
-    }).catch(() => {
-        el.style.display = 'none';
-        btn.innerHTML = orig;
-        btn.disabled = false;
+    // Double rAF: guarantee layout before capture
+    requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+        html2pdf().set({
+            margin: 0,
+            filename: 'Дарижапов_Чимитдоржи_Резюме_2026.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff',
+                           scrollX: 0, scrollY: 0, windowWidth: 794, windowHeight: 1123 },
+            jsPDF: { unit: 'px', format: [794, 1123], orientation: 'portrait', hotfixes: ['px_scaling'] }
+        }).from(el).save().then(() => {
+            el.remove();
+            btn.innerHTML = '<span class="material-icons" style="font-size:15px">check_circle</span>&nbsp;Готово!';
+            setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 2500);
+        }).catch(() => {
+            el.remove();
+            btn.innerHTML = orig;
+            btn.disabled = false;
+        });
+    });
     });
 }
 </script>
