@@ -178,7 +178,7 @@
         <div id="lang-menu">
             <button class="lang-option active" data-lang="ru">RU Русский</button>
             <button class="lang-option" data-lang="en">EN English</button>
-            <button class="lang-option" data-lang="zh">ZH 中文</button>
+            <button class="lang-option" data-lang="zh">CN 中文</button>
         </div>
     </div>
 </div>
@@ -381,7 +381,7 @@
     function apply(l) {
         lang = l; localStorage.setItem('siteLang', l);
         document.documentElement.lang = l === 'zh' ? 'zh-CN' : l;
-        label.textContent = l.toUpperCase();
+        label.textContent = l === 'zh' ? 'CN' : l.toUpperCase();
         opts.forEach(o => o.classList.toggle('active', o.dataset.lang === l));
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const k = el.dataset.i18n;
