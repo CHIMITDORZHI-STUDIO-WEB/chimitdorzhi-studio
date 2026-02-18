@@ -2464,12 +2464,14 @@ function downloadResume() {
     btn.innerHTML = '<span class="material-icons" style="font-size:15px;vertical-align:middle;animation:spin 1s linear infinite">hourglass_empty</span>&nbsp;Генерирую...';
     btn.disabled = true;
 
-    const el = document.getElementById('resume-pdf');
-    // Temporarily place element in viewport (html2canvas requires it)
-    el.style.cssText = 'display:block;position:absolute;left:0;top:0;z-index:-9999;opacity:0;pointer-events:none;width:794px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#1e293b;font-size:13px;line-height:1.4;';
+    // Clone resume element so html2canvas captures it at full opacity
+    const src = document.getElementById('resume-pdf');
+    const el = src.cloneNode(true);
+    el.id = 'resume-pdf-render';
+    el.style.cssText = 'position:fixed;left:0;top:0;width:794px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#1e293b;font-size:13px;line-height:1.4;z-index:-1;pointer-events:none;';
     document.body.appendChild(el);
 
-    // Allow browser to layout the element before capture
+    // Double rAF: guarantee layout before capture
     requestAnimationFrame(() => {
     requestAnimationFrame(() => {
         html2pdf().set({
@@ -2480,23 +2482,16 @@ function downloadResume() {
                            scrollX: 0, scrollY: 0, windowWidth: 794, windowHeight: 1123 },
             jsPDF: { unit: 'px', format: [794, 1123], orientation: 'portrait', hotfixes: ['px_scaling'] }
         }).from(el).save().then(() => {
-            hideResume(el, btn, orig, true);
+            el.remove();
+            btn.innerHTML = '<span class="material-icons" style="font-size:15px">check_circle</span>&nbsp;Готово!';
+            setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 2500);
         }).catch(() => {
-            hideResume(el, btn, orig, false);
+            el.remove();
+            btn.innerHTML = orig;
+            btn.disabled = false;
         });
     });
     });
-}
-
-function hideResume(el, btn, orig, success) {
-    el.style.cssText = 'display:none;width:794px;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#1e293b;font-size:13px;line-height:1.4;';
-    if (success) {
-        btn.innerHTML = '<span class="material-icons" style="font-size:15px">check_circle</span>&nbsp;Готово!';
-        setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 2500);
-    } else {
-        btn.innerHTML = orig;
-        btn.disabled = false;
-    }
 }
 </script>
 <style>
